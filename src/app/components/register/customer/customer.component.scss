@@ -1,0 +1,35 @@
+label {
+    @apply block text-sm font-bold mb-2;
+}
+
+.labelNormal {
+    @apply text-gray-700;
+}
+
+.labelError {
+    @apply text-red-700;
+}
+
+input, textarea, select {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none hover:border-blue-400 cursor-pointer ;
+}
+
+#shopPhoto {
+    @apply cursor-pointer absolute block opacity-0;
+}
+
+.inputError {
+    @apply border-red-500;
+}
+
+button {
+    @apply  bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none;
+}
+
+.buttonDisabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+.buttonEffect {
+    @apply hover:bg-blue-700;
+}
