@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RegisterComponent } from './components/register/register.component';
+import { VendorGuard } from './guard/vendor.guard';
 
 const routes: Routes = [
   {
@@ -19,7 +20,9 @@ const routes: Routes = [
   },
   {
     path: 'vendor',
-    loadChildren: () => import('./vendor/vendor.module').then(m => m.VendorModule)
+    canActivate: [VendorGuard],
+    canActivateChild: [VendorGuard],
+    loadChildren: () => import('./vendor/vendor.module').then(m => m.VendorModule),
   },
   {
     path: 'admin',

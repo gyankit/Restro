@@ -11,7 +11,7 @@ import { RegisterService } from 'src/app/service/register.service';
 @Component({
   selector: 'app-vendor',
   templateUrl: './vendor.component.html',
-  styleUrls: ['./vendor.component.scss']
+  styleUrls: ['./vendor.component.css']
 })
 export class VendorComponent implements OnInit {
 

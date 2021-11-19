@@ -13,22 +13,17 @@ export class AuthService {
 
   constructor(private url: UrlService, private http: HttpClient, private session: SessionService) { }
 
-  login(data: any): Observable<any> {
+  login(data: any, next: string): Observable<any> {
     this._url = this.url.getDefaultUrl('login');
-    let body;
-    if (isNaN(data.username)) {
-      body = { email: data.username }
-    } else {
-      body = { userId: data.username }
-    }
-    return this.http.post(this._url, body);
+    data.type = this.userTypeId(next);
+    return this.http.post(this._url, data);
   }
 
   setLoggedIn(loggedIn: boolean, userId: string, type: string) {
     this.session.setSession(loggedIn, userId, type);
   }
 
-  isloggedIn(): boolean {
+  get loggedIn(): boolean {
     return this.session.isLoggedIn;
   }
 
@@ -38,5 +33,29 @@ export class AuthService {
 
   logout(): void {
     this.session.resetSession();
+  }
+
+  userTypeId(type: string) {
+    let id = 1;
+    switch (type) {
+      case 'customer':
+        id = 1;
+        break;
+      case 'vendor':
+        id = 2;
+        break;
+      case 'delivery':
+        id = 3;
+        break;
+      case 'reviewer':
+        id = 4;
+        break;
+      case 'super_su':
+        id = 5;
+        break;
+      default:
+        id = 1
+    }
+    return id;
   }
 }

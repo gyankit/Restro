@@ -6,7 +6,7 @@
             <app-vendor *ngIf="next == 'vendor'" [next]="next"></app-vendor>
             <app-admin *ngIf="next == 'admin'" [next]="next"></app-admin>
             <div class="flex justify-center mb-5">
-                <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+                <a [routerLink]="['/login']" routerLinkActive="router-link-active" [queryParams]="{next: next}"
                     class="inline-block align-baseline font-bold text-sm text-blue-300 hover:text-blue-500 cursor-pointer">
                     Sign In
                 </a>

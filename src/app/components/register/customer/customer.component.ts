@@ -11,7 +11,7 @@ import { RegisterService } from 'src/app/service/register.service';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+  styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
 
