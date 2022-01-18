@@ -1,0 +1,24 @@
+<div class="mt-5">
+    <table class="table-auto">
+        <thead>
+            <th>SL No</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let menu of menus; index as i;">
+                <td>{{ i+1}}</td>
+                <td>{{ menu.mid }}</td>
+                <td>{{ menu.name }}</td>
+                <td>{{ menu.quantity }}</td>
+                <td>{{ menu.price }}</td>
+                <td>{{ menu.active }}</td>
+                <td><button>Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

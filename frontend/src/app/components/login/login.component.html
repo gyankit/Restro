@@ -1,0 +1,49 @@
+<div class="container mt-10 " *ngIf="urlIsCorrect;else elseBlock">
+    <app-error></app-error>
+    <div class="flex justify-center">
+        <div class="w-full max-w-xs">
+            <h3 class="text-center font-bold text-2xl">{{ next | titlecase }} Login</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)"
+                class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <app-error [isError]="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email ID</label>
+                    <input id="email" name="email" type="email" formControlName="email" placeholder="Email ID">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input id="password" name="password" type="password" formControlName="password"
+                        placeholder="**********">
+                    <!-- <div *ngIf="loginForm.controls.password.errors" class="mt-2 text-right">
+                        <strong *ngIf="loginForm.controls.password.errors.minlength" class="text-red-700">
+                            Please Provide Valid Password.
+                        </strong>
+                    </div> -->
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" [disabled]="loginForm.invalid"
+                        [ngClass]="{buttonDisabled: loginForm.invalid, buttonEffect: loginForm.valid}">
+                        Sign In
+                    </button>
+                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                        Forgot Password?
+                    </a>
+                </div>
+            </form>
+            <div class="flex justify-center mb-5">
+                <a [routerLink]="['/register']" routerLinkActive="router-link-active" [queryParams]="{next: next}"
+                    class="inline-block align-baseline font-bold text-sm text-blue-300 hover:text-blue-500 cursor-pointer">
+                    Create New Account
+                </a>
+            </div>
+            <p class="text-center text-gray-500 text-xs">
+                &copy;2021 . All rights reserved.
+            </p>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <app-page-not-found></app-page-not-found>
+</ng-template>

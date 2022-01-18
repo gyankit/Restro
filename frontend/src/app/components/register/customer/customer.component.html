@@ -1,0 +1,105 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)"
+    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="mb-4">
+        <label for="customerName">Customer Name * </label>
+        <input id="customerName" name="customerName" type="text" placeholder="Customer Name"
+            formControlName="customerName">
+    </div>
+    <div class="mb-4" formGroupName="address">
+        <label for="address">Address </label>
+        <div class="mx-4">
+            <div class="mb-4">
+                <label for="address1">Vill/Town/City* </label>
+                <input id="address1" name="address1" type="text" formControlName="address1"
+                    placeholder="Vill/Town/City">
+            </div>
+            <div class="mb-4">
+                <label for="address2">Street (Optional)</label>
+                <input id="address2" name="address2" type="text" formControlName="address2" placeholder="Street">
+            </div>
+            <div class="mb-4">
+                <label for="state">State * </label>
+                <select id="state" name="state" #state formControlName="state" (change)="cityDropDown(state.value)">
+                    <option value="">Choose State...</option>
+                    <option *ngFor="let state of country.states" [value]="state.code">{{ state.name }}
+                    </option>
+                </select>
+                <div *ngIf="rfa.get('state')?.touched" class="mt-2 text-right">
+                    <strong *ngIf="rfa.get('state')?.errors" class="text-red-700">
+                        Please Select State from List.
+                    </strong>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="district">District * </label>
+                <select id="district" name="district" formControlName="district">
+                    <option value="">Choose District...</option>
+                    <option *ngFor="let city of cities" [value]="city">{{ city }}
+                    </option>
+                </select>
+                <div *ngIf="rfa.get('district')?.touched" class="mt-2 text-right">
+                    <strong *ngIf="rfa.get('district')?.errors" class="text-red-700">
+                        Please Select District from List.
+                    </strong>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="pin">Pin code * </label>
+                <input id="pin" name="pin" type="text" placeholder="Pin Code" formControlName="pin">
+                <div *ngIf="rfa.get('pin')?.touched" class="mt-2 text-right">
+                    <strong *ngIf="rfa.get('pin')?.errors" class="text-red-700">
+                        Please Provide Valid 6 Digit Pin Code.
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="mobile">Mobile Number *</label>
+        <input id="mobile" name="mobile" type="text" placeholder="Modile Number" formControlName="mobile">
+        <div *ngIf="rf['mobile'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['mobile'].errors['pattern']" class="text-red-700">
+                Please Provide Valid 10 Digit Mobile Number.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="email">Email ID * </label>
+        <input id="email" name="email" type="email" placeholder="Email Id" formControlName="email">
+        <div *ngIf="rf['email'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['email'].errors['pattern']" class="text-red-700">
+                Please Provide Valid Email Id.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="password">Password * </label>
+        <input id="password" name="password" type="password" placeholder="Password" formControlName="password">
+        <div *ngIf="rf['password'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['password'].errors['minlength']" class="text-red-700">
+                Please Provide Valid Password.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="confirmPassword">Confirm Password * </label>
+        <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password"
+            formControlName="confirmPassword">
+        <div *ngIf="rf['confirmPassword'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['confirmPassword'].errors['minlength']" class="text-red-700">
+                Please Provide Valid Password.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-8">
+        <label for="photo">Photo * </label>
+        <input id="photo" name="photo" type="file" formControlName="photo" accept="image/*"
+            (change)="fileOnChange($event)">
+    </div>
+    <app-error [isError]="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
+    <button type="submit" [disabled]="registerForm.invalid"
+        [ngClass]="{buttonDisabled: registerForm.invalid, buttonEffect: registerForm.valid}">
+        <app-spinner *ngIf="submitted"></app-spinner>
+        <span>Register {{ next | titlecase }}</span>
+    </button>
+</form>

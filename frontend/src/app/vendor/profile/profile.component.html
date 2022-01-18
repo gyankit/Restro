@@ -1,0 +1,16 @@
+<div class="container my-2">
+    <div class="flex justify-between border-b border-t px-4 py-2">
+        <h3 class="text-center font-bold text-2xl">Profile Details</h3>
+        <button type="button" (click)="editBtnClick()"
+            class="bottom-0 rounded px-5 py-1 text-lg text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500">
+            <span class="material-icons md-18">edit</span>
+            <strong>Edit</strong>
+        </button>
+    </div>
+    <div *ngIf="isEditBtnClick; else elseBlock">
+        <app-edit [profile]="profile" (profileUpdated)="editBtnClick()"></app-edit>
+    </div>
+    <ng-template #elseBlock>
+        <app-view [profile]="profile"></app-view>
+    </ng-template>
+</div>
