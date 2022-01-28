@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,18 +8,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  next: string = 'customer';
-  urlIsCorrect: boolean = false;
+  next: string = '';
 
-  constructor(private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      if (params['next'] !== undefined) {
-        this.next = params['next'];
-      }
-      if (this.next === 'customer' || this.next === 'vendor' || this.next === 'supervisor') {
-        this.urlIsCorrect = true;
-      }
-    });
+  constructor(private route: ActivatedRoute, private router: Router) {
+    const path = this.route.snapshot.paramMap.get('next');
+    if (path === null) {
+      this.next = 'customer';
+    } else if (path === 'admin') {
+      this.next = 'admin';
+    } else if (path === 'vendor') {
+      this.next = 'vendor';
+    } else {
+      this.router.navigate(["register"]);
+    }
   }
 
   ngOnInit(): void { }

@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.loggedIn) {
       alert('You are not allowed to view this page. You are redirected to login Page');
-      this.router.navigate(["login"], { queryParams: { next: 'vendor' } });
+      this.router.navigate(["login", "admin"]);
       return false;
     }
     return false;
@@ -25,7 +25,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.isLoggedIn('vendor')) {
       alert('You are not allowed to view this page');
-      this.router.navigate(["login"], { queryParams: { next: 'vendor' } });
+      this.router.navigate(["login", "admin"]);
       return false;
     }
     return true;

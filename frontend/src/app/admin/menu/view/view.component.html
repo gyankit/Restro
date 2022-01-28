@@ -1,0 +1,42 @@
+<div class="mt-5">
+    <table class="table-auto w-full" *ngIf="menus.length !== 0; else elseBlock">
+        <thead class="bg-lime-400 h-10">
+            <th>SL No</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Active</th>
+            <th>Verified</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody class="text-center">
+            <tr *ngFor="let menu of menus; index as i;" class="h-10">
+                <td>{{ i+1 }}</td>
+                <td>{{ menu.name }}</td>
+                <td>{{ menu.category }}</td>
+                <td>{{ menu.quantity }}</td>
+                <td>{{ menu.price }}</td>
+                <td>
+                    <button
+                        class="px-5 py-1 rounded-3xl {{ menu.active ? 'bg-green-400 hover:bg-green-500' : 'bg-yellow-400 hover:bg-yellow-500' }}"
+                        (click)="changeState(menu._id)">{{ menu.active ? 'Yes' : 'No' }}</button>
+                </td>
+                <td>
+                    <button class="px-5 py-1 rounded-3xl {{ menu.verfied ? 'bg-green-400' : 'bg-gray-400' }}">{{
+                        menu.verfied ? 'Yes' : 'No' }}</button>
+                </td>
+                <td>
+                    <button class="bg-yellow-400 px-5 py-1 rounded-3xl hover:bg-yellow-500"
+                        (click)="updateForm(menu._id)">Edit</button>
+                </td>
+                <td>
+                    <button class="bg-red-500 px-5 py-1 rounded-3xl hover:bg-red-600"
+                        (click)="deleteMenu(menu._id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #elseBlock>No Data Available.</ng-template>
+</div>

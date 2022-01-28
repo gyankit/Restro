@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Menu } from 'src/app/models/menu';
+import { FileService } from 'src/app/service/file.service';
 import { SessionService } from 'src/app/service/session.service';
 import { MenuService } from '../../service/menu.service';
 
@@ -10,25 +11,39 @@ import { MenuService } from '../../service/menu.service';
 })
 export class AddComponent implements OnInit {
 
-  menu = new Menu(0, 0, '', 0, 0, false, false);
+  isError: boolean = false;
+  error: any = null;
+  menu = new Menu('', '', '', 0, 0, '', false, false, false);
   @Output() menuAdded = new EventEmitter();
+  file!: File;
 
-  constructor(private session: SessionService, private menuService: MenuService) { }
+  constructor(private session: SessionService, private menuService: MenuService, private fileService: FileService) { }
 
   ngOnInit(): void {
   }
 
   onFormSubmit() {
-    this.menu.mid = Date.now();
-    this.menu.vid = parseInt(this.session.uid);
-    this.addMenu(this.menu);
+    this.menu.vid = this.session.uid;
+    this.menuService.postRequest(this.menu).subscribe({
+      next: (data: Menu) => {
+        this.fileService.upload([this.file], data._id, 'menu').subscribe({
+          next: (ndata) => { this.menuAdded.emit(ndata) },
+          error: (error) => { this.menuAdded.emit(data) }
+        });
+      },
+      error: (error) => {
+        this.isError = true;
+        this.error = error;
+      }
+    })
   }
 
-  addMenu(newMenu: Menu) {
-    this.menuService.postRequest(newMenu).subscribe({
-      next: (data: Menu) => this.menuAdded.emit(data),
-      error: (error) => console.error(error)
-    })
+  fileOnChange(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  boxClose() {
+    this.isError = false;
   }
 
 }

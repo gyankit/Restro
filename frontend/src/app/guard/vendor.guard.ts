@@ -15,7 +15,7 @@ export class VendorGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.loggedIn) {
       alert('You are not allowed to view this page. You are redirected to login Page');
-      this.router.navigate(["login"], { queryParams: { next: 'vendor' } });
+      this.router.navigate(["login", "vendor"]);
       return false;
     }
     return true;
@@ -23,9 +23,9 @@ export class VendorGuard implements CanActivate, CanActivateChild {
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.authService.isLoggedIn('vendor')) {
+    if (!this.authService.isLoggedIn('2')) {
       alert('You are not allowed to view this page');
-      this.router.navigate(["login"], { queryParams: { next: 'vendor' } });
+      this.router.navigate(["login", "vendor"]);
       return false;
     }
     return true;

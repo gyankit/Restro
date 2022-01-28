@@ -1,6 +1,5 @@
 export class Vendor {
     constructor(
-        public vid: number,
         public ownerName: string,
         public shopName: string,
         public address: {
@@ -14,9 +13,9 @@ export class Vendor {
         public email: string,
         public ownerPhoto: string,
         public shopPhoto: string,
-        public rating: number,
+        public password: string,
         public varified: boolean,
         public active: boolean,
-        public id?: string,
+        public _id?: string,
     ) { }
 }

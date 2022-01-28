@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { City, Country } from 'src/app/models/country';
 import { Customer } from 'src/app/models/customer';
-import { Login } from 'src/app/models/login';
 import { AuthService } from 'src/app/service/auth.service';
 import { CountryService } from 'src/app/service/country.service';
 import { FileService } from 'src/app/service/file.service';
@@ -20,8 +19,7 @@ export class CustomerComponent implements OnInit {
   isError: boolean = false;
   error: any = null;
   submitted: boolean = false;
-  profile = new Customer(0, '', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', true, true);
-  login = new Login('', '', 0, true, 1);
+  profile = new Customer('', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', true, true);
   country = new Country('', '', '', '', [{ name: '', code: '', latitude: '', longitude: '', cities: [{ name: '', latitude: '', longitude: '' }] }]);
   cities: Array<City> = [];
   file!: File;
@@ -65,49 +63,28 @@ export class CustomerComponent implements OnInit {
     this.profile.address.district = form.controls['address'].get('district')?.value;
     this.profile.address.state = form.controls['address'].get('state')?.value;
     this.profile.address.pin = form.controls['address'].get('pin')?.value;
-    this.profile.cid = Date.now();
+    this.profile.password = form.controls['password'].value;
 
-    this.login.password = form.controls['password'].value;
-    this.login.email = form.controls['email'].value;
-    this.login.lid = this.profile.cid;
-
-    this.profile.photo = this.login.lid + '.' + this.file.type.split('/')[1];
-    this.addAccount(this.profile, this.login);
+    this.addAccount(this.profile);
   }
 
   fileOnChange(event: any) {
     this.file = event.target.files[0];
   }
 
-  addAccount(newProfile: Customer, newLogin: Login) {
-    this.register.addAccount(newProfile, newLogin, this.next).subscribe({
-      next: (data: boolean) => {
+  addAccount(newProfile: Customer) {
+    this.register.addAccount(newProfile, this.next).subscribe({
+      next: (data: any) => {
         this.submitted = false;
-        if (data) {
-          this.fileService.uploadOne(this.file, newLogin.lid, this.next).subscribe(data => console.log(data));
-          this.router.navigate(["login"], { queryParams: { next: this.next } });
-        } else {
-          this.setError();
-        }
+        this.fileService.upload([this.file], data, this.next).subscribe(data => console.log(data));
+        this.router.navigate(["login"]);
       },
       error: (error) => {
         this.submitted = false;
-        let errorKey, errorValue;
-        for (var key in error.error.keyValue) {
-          errorKey = key;
-          errorValue = error.error.keyValue[key];
-        }
-        this.setError(error.error.code, `Duplicate value error { ${errorKey} : ${errorValue} }`);
+        this.isError = true;
+        this.error = error;
       }
     })
-  }
-
-  setError(code = 11000, msg = 'Error Occur! Please try Again!') {
-    this.isError = true;
-    this.error = {
-      code: code,
-      msg: msg
-    }
   }
 
   boxClose() {

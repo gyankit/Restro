@@ -1,6 +1,5 @@
 export class Customer {
     constructor(
-        public cid: number,
         public name: string,
         public address: {
             address1: string,
@@ -12,8 +11,9 @@ export class Customer {
         public mobile: string,
         public email: string,
         public photo: string,
+        public password: string,
         public varified: boolean,
         public active: boolean,
-        public id?: string,
+        public _id?: string,
     ) { }
 }

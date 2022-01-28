@@ -10,21 +10,20 @@ var _URL = 'mongodb+srv://' + USER + ':' + PASS + '@' + CLUSTER + '.ruqzn.mongod
 //var _URL = 'mongodb://127.0.0.1:27017/watero?directConnection=true&serverSelectionTimeoutMS=2000?retryWrites=false?replicaSet=rs';
 
 module.exports = {
-    connect: function () {
-        mongoose.connect(_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
-            .then(function () {
-                console.log('MongoDB connnection successful!');
-            })
-            .catch(function (err) {
-                console.warn('MongoDB connection failed (URL) : ' + _URL);
-                console.error(err);
+    connect: async () => {
+        try {
+            await mongoose.connect(_URL, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
             });
+            console.log('MongoDB connnection successful!');
+        } catch (error) {
+            console.warn('MongoDB connection failed (URL) : ' + _URL);
+            console.error(error);
+        }
     },
 
-    close: function () {
+    close: async () => {
         mongoose.connection.close();
         console.warn('MongoDB connnection closed!');
     }

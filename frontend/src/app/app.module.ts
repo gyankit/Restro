@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { CustomerComponent } from './components/register/customer/customer.component';
 import { VendorComponent } from './components/register/vendor/vendor.component';
 import { AdminComponent } from './components/register/admin/admin.component';
+import { ApiInterceptor } from './api.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { AdminComponent } from './components/register/admin/admin.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,12 +1,12 @@
 require('dotenv').config();
-var app = require('../app');
-var http = require('http');
+const app = require('../app');
+const http = require('http');
 
-var port = normalizePort(process.env.PORT || 8000);
+const port = normalizePort(process.env.PORT || 8000);
 
 app.set('port', port);
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 server.listen(port, function () {
   console.log('Server Up and Running')
@@ -23,7 +23,7 @@ server.listen(port, function () {
 
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
   if (isNaN(port)) return val;
   if (port >= 0) return port;
   return false;

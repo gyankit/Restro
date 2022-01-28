@@ -1,1 +1,58 @@
-<p>edit works!</p>
+<div class="border-0 rounded m-4">
+    <h2 class="font-bold text-xl text-center mb-3">Menu Edit Form</h2>
+    <hr />
+    <app-error *ngIf="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
+    <form #menuAddForm="ngForm" (ngSubmit)="onFormSubmit()" class="mt-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id">
+                Menu Id
+            </label>
+            <input id="id" name="id" type="text" readonly [(ngModel)]="menu._id"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                Menu Name
+            </label>
+            <input id="name" name="name" type="text" required [(ngModel)]="menu.name"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
+                Menu Category
+            </label>
+            <input id="category" name="category" type="text" required [(ngModel)]="menu.category"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity">
+                Quantity
+            </label>
+            <input id="quantity" name="quantity" type="number" required [(ngModel)]="menu.quantity"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+                Price
+            </label>
+            <input id="price" name="price" type="number" required [(ngModel)]="menu.price"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="photo">
+                Photo
+            </label>
+            <img src="{{menu.photo}}" width="300px" alt="No Images">
+            <input id="photo" name="photo" type="file" required accept="image/*" (change)="fileOnChange($event)"
+                class="shadow appearance-none border rounded w-full py-2 px-3 mt-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="m-8">
+            <button type="submit" [disabled]="!menuAddForm.form.valid"
+                class="border-0 rounded px-5 py-3 font-bold text-lg text-center text-white bg-blue-500 disabled:bg-blue-300 hover:rounded-3xl">
+                Edit Details
+            </button>
+            <button type="button" (click)="cancelEdit()"
+                class="border-0 rounded mx-5 px-5 py-3 font-bold text-lg text-center text-white bg-yellow-500 disabled:bg-yellow-300 hover:rounded-3xl">Back</button>
+        </div>
+    </form>
+</div>

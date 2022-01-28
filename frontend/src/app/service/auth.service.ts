@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
 import { UrlService } from './url.service';
+import { Customer } from '../models/customer';
+import { Supervisor } from '../models/supervisor';
+import { Vendor } from '../models/vendor';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +22,25 @@ export class AuthService {
     return this.http.post(this._url, data);
   }
 
-  setLoggedIn(loggedIn: boolean, uid: string, type: string) {
-    this.session.setSession(loggedIn, uid, type);
+  register(profile: Customer | Vendor | Supervisor, next: string): Observable<any> {
+    this._url = this.url.getDefaultUrl('register');
+    return this.http.post<any>(this._url, { profile, "type": this.userTypeId(next) });
+  }
+
+  setLoggedIn(loggedIn: boolean, user: any) {
+    this.session.setSession(loggedIn, user);
   }
 
   get loggedIn(): boolean {
     return this.session.isLoggedIn;
   }
 
-  isLoggedIn(user: string): boolean {
-    return this.session.type === user ? true : false;
+  get type(): string {
+    return this.session.type;
+  }
+
+  isLoggedIn(type: string): boolean {
+    return this.session.type === type ? true : false;
   }
 
   logout(): void {
@@ -36,8 +48,11 @@ export class AuthService {
   }
 
   userTypeId(type: string) {
-    let id = 1;
+    let id;
     switch (type) {
+      case 'admin':
+        id = 0;
+        break;
       case 'customer':
         id = 1;
         break;
@@ -49,9 +64,6 @@ export class AuthService {
         break;
       case 'reviewer':
         id = 4;
-        break;
-      case 'super_su':
-        id = 5;
         break;
       default:
         id = 1

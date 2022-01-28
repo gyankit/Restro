@@ -96,7 +96,7 @@
         <input id="photo" name="photo" type="file" formControlName="photo" accept="image/*"
             (change)="fileOnChange($event)">
     </div>
-    <app-error [isError]="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
+    <app-error *ngIf="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
     <button type="submit" [disabled]="registerForm.invalid"
         [ngClass]="{buttonDisabled: registerForm.invalid, buttonEffect: registerForm.valid}">
         <app-spinner *ngIf="submitted"></app-spinner>

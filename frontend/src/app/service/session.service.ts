@@ -7,35 +7,45 @@ export class SessionService {
 
   constructor() { }
 
-  setSession(loggedIn: boolean, uid: string, type: string) {
-    localStorage.setItem('isLoggedIn', loggedIn ? 'true' : 'false');
-    localStorage.setItem('uid', uid);
-    localStorage.setItem('type', type);
+  setSession(loggedIn: boolean, user: any) {
+    sessionStorage.setItem('isLoggedIn', loggedIn ? 'true' : 'false');
+    sessionStorage.setItem('uid', user.id);
+    sessionStorage.setItem('type', user.type);
+    sessionStorage.setItem('token', user.token);
   }
 
   get isLoggedIn() {
-    return localStorage.getItem('isLoggedIn') == 'true' ? true : false;
+    return sessionStorage.getItem('isLoggedIn') == 'true' ? true : false;
   }
 
   get uid(): string {
-    let uid = localStorage.getItem('uid');
+    let uid = sessionStorage.getItem('uid');
     if (uid === null) {
       uid = '';
     }
     return uid;
   }
 
-  get type() {
-    let type = localStorage.getItem('type');
+  get type(): string {
+    let type = sessionStorage.getItem('type');
     if (type === null) {
       type = '';
     }
     return type;
   }
 
+  get token(): string {
+    let token = sessionStorage.getItem('token');
+    if (token === null) {
+      token = '';
+    }
+    return token;
+  }
+
   resetSession() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('uid');
-    localStorage.removeItem('type');
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('uid');
+    sessionStorage.removeItem('type');
+    sessionStorage.removeItem('token');
   }
 }
