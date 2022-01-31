@@ -14,10 +14,10 @@ module.exports = {
                     user = await Supervisor.findOne({ email: req.body.email, active: true, varified: true });
                     break;
                 case 1:
-                    user = await Customer.findOne({ email: req.body.email, active: true, varified: true });
+                    user = await Vendor.findOne({ email: req.body.email, active: true, varified: true });
                     break;
                 case 2:
-                    user = await Vendor.findOne({ email: req.body.email, active: true, varified: true });
+                    user = await Customer.findOne({ email: req.body.email, active: true, varified: true });
                     break;
                 default:
                     throw new Error('Invalid Login Credentials');

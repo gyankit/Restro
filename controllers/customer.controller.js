@@ -30,7 +30,6 @@ module.exports = {
     //Customer Find Controller
     find: async (req, res) => {
         try {
-            if (!req.isAuth) throw new Error(401);
             let data;
             switch (req._type) {
                 case 0:

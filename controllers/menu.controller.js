@@ -38,36 +38,8 @@ module.exports = {
             if (!req.isAuth) throw new Error(401);
             if (req._type !== 2) throw new Error(401);
             const data = await Menu.findByIdAndDelete(req.params.id);
-            await file.remove(data.photo, 'menu');
+            await file.remove(data.photo);
             sr(res, true);
-        } catch (err) {
-            er(res, err);
-        }
-    },
-
-    //Menu Find All Controller
-    find: async (req, res) => {
-        try {
-            if (!req.isAuth) throw new Error(401);
-            let data;
-            switch (req._type) {
-                case 0:
-                    data = await Menu.find({});
-                    break;
-                case 1:
-                    data = await Menu.find({ active: true, varified: true, del: false });
-                    break;
-                case 2:
-                    if (req.body.req) {
-                        data = await Menu.findById(req.body.id);
-                    } else {
-                        data = await Menu.find({ vid: req._id, del: false });
-                    }
-                    break;
-                default:
-                    throw new Error(400);
-            }
-            sr(res, data);
         } catch (err) {
             er(res, err);
         }
@@ -92,6 +64,30 @@ module.exports = {
         } catch (err) {
             er(res, err);
         }
-    }
+    },
+
+    find: async (req, res) => {
+        try {
+            let data;
+            switch (req._type) {
+                case 0:
+                    data = await Menu.find({});
+                    break;
+                case 1:
+                    data = await Menu.find({ vid: req._id, del: false });
+                    break;
+                default:
+                    if (req.body.req) {
+                        data = await Menu.findById(req.body.id);
+                    } else {
+                        data = await Menu.find({ active: true, varified: true, del: false });
+                    }
+                    break;
+            }
+            sr(res, data);
+        } catch (err) {
+            er(res, err);
+        }
+    },
 
 };
