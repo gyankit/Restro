@@ -9,11 +9,11 @@ import { FileService } from 'src/app/service/file.service';
 import { RegisterService } from 'src/app/service/register.service';
 
 @Component({
-  selector: 'app-customer',
-  templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.css']
+  selector: 'app-customer-register',
+  templateUrl: './customer-register.component.html',
+  styleUrls: ['./customer-register.component.css']
 })
-export class CustomerComponent implements OnInit {
+export class CustomerRegisterComponent implements OnInit {
 
   @Input() next!: string;
   isError: boolean = false;
@@ -76,8 +76,7 @@ export class CustomerComponent implements OnInit {
     this.register.addAccount(newProfile, this.next).subscribe({
       next: (data: any) => {
         this.submitted = false;
-        this.fileService.upload([this.file], data, this.next).subscribe(data => console.log(data));
-        this.router.navigate(["login"]);
+        this.fileService.upload([this.file], data, this.next).subscribe(data => this.router.navigate(["login"]));
       },
       error: (error) => {
         this.submitted = false;

@@ -2,9 +2,9 @@
     <div class="flex justify-center">
         <div class="w-full max-w-xl">
             <h3 class="text-center font-bold text-2xl">{{ next | titlecase }} Register Form</h3>
-            <app-customer *ngIf="next == 'customer'" [next]="next"></app-customer>
-            <app-vendor *ngIf="next == 'vendor'" [next]="next"></app-vendor>
-            <app-admin *ngIf="next == 'admin'" [next]="next"></app-admin>
+            <!-- <app-customer *ngIf="next == 'customer'" [next]="next"></app-customer> -->
+            <!-- <app-vendor *ngIf="next == 'vendor'" [next]="next"></app-vendor>
+            <app-admin *ngIf="next == 'admin'" [next]="next"></app-admin> -->
             <div class="flex justify-center mb-5">
                 <a [routerLink]="['/login', next]" routerLinkActive="router-link-active"
                     class="inline-block align-baseline font-bold text-sm text-blue-300 hover:text-blue-500 cursor-pointer">

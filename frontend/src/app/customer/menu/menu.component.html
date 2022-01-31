@@ -1,0 +1,21 @@
+<div class="box-content shadow-xl mt-8 mr-8 bg-white">
+    <img src="{{menu.photo}}" width="300px" alt="No Images" class="border rounded">
+    <div class="flex justify-between px-4 py-2">
+        <span class="text-xl font-bold">
+            {{menu.name}}
+        </span>
+        <span class="text-lg font-semibold">
+            {{menu.price}}
+        </span>
+    </div>
+    <div *ngIf="loggedIn" class="px-5 py-2">
+        <button (click)="addToCart()" type="button"
+            class="w-64 block mt-2 py-2 rounded-3xl text-white {{ isAddedToCart ? 'border-indigo-500 bg-indigo-500 hover:bg-indigo-600' : 'border-sky-500 bg-sky-500 hover:bg-sky-600' }}">
+            {{ isAddedToCart ? 'Remove From Cart' : 'Add to Cart' }}
+        </button>
+        <a type="button" [routerLink]="['/checkout']" routerLinkActive="router-link-active"
+            class="w-64 block mt-2 py-2 rounded-3xl text-center cursor-pointer text-white border-pink-500 bg-pink-500 hover:bg-pink-600">
+            Buy Now
+        </a>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div class="container-fluid mx-8 flex flex-wrap">
+    <div *ngIf="menus.length !== 0; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <div *ngFor="let menu of menus">
+            <app-menu [menu]="menu"></app-menu>
+        </div>
+    </ng-template>
+    <ng-template #elseBlock>
+        No Data Available
+    </ng-template>
+</div>
+<app-footer></app-footer>

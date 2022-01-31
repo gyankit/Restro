@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Vendor } from 'src/app/models/vendor';
 
 @Component({
   selector: 'app-view',

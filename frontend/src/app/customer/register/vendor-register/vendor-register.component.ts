@@ -9,11 +9,11 @@ import { FileService } from 'src/app/service/file.service';
 import { RegisterService } from 'src/app/service/register.service';
 
 @Component({
-  selector: 'app-vendor',
-  templateUrl: './vendor.component.html',
-  styleUrls: ['./vendor.component.css']
+  selector: 'app-vendor-register',
+  templateUrl: './vendor-register.component.html',
+  styleUrls: ['./vendor-register.component.css']
 })
-export class VendorComponent implements OnInit {
+export class VendorRegisterComponent implements OnInit {
 
   @Input() next!: string;
   isError: boolean = false;
@@ -83,8 +83,7 @@ export class VendorComponent implements OnInit {
   addAccount(newProfile: Vendor) {
     this.register.addAccount(newProfile, this.next).subscribe({
       next: (data: any) => {
-        this.fileService.upload([this.file1, this.file2], data, this.next).subscribe(data => console.log(data));
-        this.router.navigate(["login", this.next]);
+        this.fileService.upload([this.file1, this.file2], data, this.next).subscribe(data => this.router.navigate(["login", this.next]));
       },
       error: (error) => {
         console.log(error);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from 'src/app/models/menu';
 import { SessionService } from 'src/app/service/session.service';
-import { MenuService } from '../service/menu.service';
+import { MenuService } from 'src/app/service/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,6 +10,7 @@ import { MenuService } from '../service/menu.service';
 })
 export class MenuComponent implements OnInit {
 
+  error!: any;
   isAddBtnClick: boolean = false;
   isEditBtnClick: boolean = false;
   id: any = false;
@@ -22,9 +23,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void { }
 
   getMenu() {
-    this.menuService.getRequest(null, null).subscribe({
+    this.menuService.getRequest(false, null).subscribe({
       next: (resp: Menu[]) => this.menus = resp,
-      error: (err: any) => console.error(err)
+      error: (err: any) => this.error = err
     });
   }
 

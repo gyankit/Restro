@@ -7,11 +7,11 @@ import { FileService } from 'src/app/service/file.service';
 import { RegisterService } from 'src/app/service/register.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-admin-register',
+  templateUrl: './admin-register.component.html',
+  styleUrls: ['./admin-register.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminRegisterComponent implements OnInit {
 
   @Input() next!: string;
   isError: boolean = false;
@@ -58,8 +58,7 @@ export class AdminComponent implements OnInit {
     this.register.addAccount(newProfile, this.next).subscribe({
       next: (data: boolean) => {
         this.submitted = false;
-        this.fileService.upload([this.file], data, this.next).subscribe(data => console.log(data));
-        this.router.navigate(["login", this.next]);
+        this.fileService.upload([this.file], data, this.next).subscribe(data => this.router.navigate(["login", this.next]));
       },
       error: (error) => {
         this.submitted = false;

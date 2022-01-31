@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Menu } from 'src/app/models/menu';
 import { UrlService } from 'src/app/service/url.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class MenuService {
 
   constructor(private http: HttpClient, private url: UrlService) { }
 
-  getRequest(req: number | null, id: any): Observable<any> {
+  getRequest(req: boolean, id: any): Observable<any> {
     this._url = this.url.getVendorUrl('menu');
     return this.http.post<any>(this._url, {
       req: req, id: id

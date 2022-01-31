@@ -1,0 +1,32 @@
+<header class="m-0 pt-2 pb-3 bg-gray-900">
+    <div class="container-fluid mx-2 flex justify-between">
+        <div class="flex-none">
+            <h1 class="font-bold text-4xl text-white">
+                <a [routerLink]="['']" routerLinkActive="router-link-active">Restro</a>
+            </h1>
+        </div>
+        <nav class="h-8 mt-2 pt-1">
+            <ul class="flex justify-around list-none">
+                <li class="font-bold text-base text-white mx-2">
+                    <a [routerLink]="['']" routerLinkActive="router-link-active">Home</a>
+                </li>
+                <li *ngIf="loggedIn" class="font-bold text-base text-white mx-2">
+                    <a [routerLink]="['profile']" routerLinkActive="router-link-active">Profile</a>
+                </li>
+                <li *ngIf="loggedIn" class="font-bold text-base text-white mx-2">
+                    <a [routerLink]="['order']" routerLinkActive="router-link-active">Order</a>
+                </li>
+                <li *ngIf="loggedIn" class="font-bold text-base text-white mx-2">
+                    <a [routerLink]="['cart']" routerLinkActive="router-link-active">Cart</a>
+                </li>
+                <li class="font-bold text-base text-white cursor-pointer mx-2">
+                    <a *ngIf="loggedIn; else elseBlock" (click)="logout()">Logout</a>
+                    <ng-template #elseBlock>
+                        <a [routerLink]="['login']" routerLinkActive="router-link-active">login</a>
+                    </ng-template>
+
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

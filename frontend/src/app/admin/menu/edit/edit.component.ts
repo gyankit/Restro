@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Menu } from 'src/app/models/menu';
-import { MenuService } from '../../service/menu.service';
+import { MenuService } from 'src/app/service/menu.service';
 
 @Component({
   selector: 'app-edit',
@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void { }
 
   ngOnChanges(): void {
-    this.menuService.getRequest(1, this.id).subscribe({
+    this.menuService.getRequest(true, this.id).subscribe({
       next: (resp: Menu) => this.menu = resp,
       error: (err: any) => console.error(err)
     });

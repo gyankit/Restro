@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Menu } from 'src/app/models/menu';
 import { SessionService } from 'src/app/service/session.service';
-import { MenuService } from '../../service/menu.service';
+import { MenuService } from 'src/app/service/menu.service';
 
 @Component({
   selector: 'app-add',

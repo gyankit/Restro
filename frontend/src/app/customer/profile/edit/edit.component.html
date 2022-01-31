@@ -1,0 +1,74 @@
+<div class="border-0 rounded m-4">
+    <h2 class="font-bold text-xl text-center mb-3">Profile Update Form</h2>
+    <hr />
+    <form #profileEditForm="ngForm" (ngSubmit)="onFormSubmit()">
+        <div class="mb-4">
+            <input id="id" name="id" type="hidden" [(ngModel)]="profile._id"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="shopName">
+                Shop Name
+            </label>
+            <input id="shopName" name="shopName" type="text" required [(ngModel)]="profile.shopName"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="ownerName">
+                Owner Name
+            </label>
+            <input id="ownerName" name="ownerName" type="text" required [(ngModel)]="profile.ownerName"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+                Address
+            </label>
+            <div class="mx-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="address1">
+                        Vill/Town/City
+                    </label>
+                    <input id="address1" name="address1" type="text" required [(ngModel)]="
+                        profile.address.address1"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="address2">
+                        Street
+                    </label>
+                    <input id="address2" name="address2" type="text" required [(ngModel)]="
+                        profile.address.address2"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="district">
+                        District
+                    </label>
+                    <input id="district" name="district" type="text" required [(ngModel)]="profile.address.district"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="state">
+                        State
+                    </label>
+                    <input id="state" name="state" type="text" required [(ngModel)]="profile.address.state"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="pin">
+                        Pin code
+                    </label>
+                    <input id="pin" name="pin" type="text" required [(ngModel)]="profile.address.pin"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+            </div>
+        </div>
+        <div class="m-8">
+            <button type="submit" [disabled]="!profileEditForm.form.valid"
+                class="border-0 rounded px-5 py-3 font-bold text-lg text-center text-white bg-blue-500 hover:rounded-3xl disabled:bg-blue-400">
+                Update Details
+            </button>
+        </div>
+    </form>
+</div>

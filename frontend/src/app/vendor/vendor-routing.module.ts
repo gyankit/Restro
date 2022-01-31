@@ -13,26 +13,11 @@ const routes: Routes = [
     canActivateChild: [VendorGuard],
     component: VendorComponent,
     children: [
-      {
-        path: '',
-        component: HomeComponent,
-      },
-      {
-        path: 'home',
-        component: HomeComponent,
-      },
-      {
-        path: 'order',
-        component: OrderComponent,
-      },
-      {
-        path: 'menu',
-        component: MenuComponent
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent
-      }
+      { path: '', component: HomeComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'order', component: OrderComponent },
+      { path: 'menu', component: MenuComponent },
+      { path: 'profile', component: ProfileComponent }
     ]
   },
 ];

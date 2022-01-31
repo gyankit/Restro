@@ -23,7 +23,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.authService.isLoggedIn('vendor')) {
+    if (!this.authService.isLoggedIn('0')) {
       alert('You are not allowed to view this page');
       this.router.navigate(["login", "admin"]);
       return false;
