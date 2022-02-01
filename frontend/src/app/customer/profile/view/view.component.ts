@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Customer } from 'src/app/models/customer';
 
 @Component({
   selector: 'app-view',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ViewComponent implements OnInit {
 
-  @Input() profile: any;
+  @Input() profile!: Customer;
 
   constructor() { }
 

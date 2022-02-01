@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   profile = new Vendor('', '', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', '', false, false);
 
   constructor(private profileService: ProfileService) {
-    this.profileService.getRequest().subscribe({
+    this.profileService.getVendorRequest().subscribe({
       next: (resp) => this.profile = resp,
       error: (err) => console.error(err)
     });

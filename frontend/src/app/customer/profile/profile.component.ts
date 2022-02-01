@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vendor } from 'src/app/models/vendor';
+import { Customer } from 'src/app/models/customer';
 import { ProfileService } from 'src/app/service/profile.service';
 
 @Component({
@@ -11,10 +11,10 @@ export class ProfileComponent implements OnInit {
 
   isEditBtnClick: boolean = false;
 
-  profile = new Vendor('', '', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', '', false, false);
+  profile = new Customer('', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', false, false);
 
   constructor(private profileService: ProfileService) {
-    this.profileService.getRequest().subscribe({
+    this.profileService.getCustomerRequest().subscribe({
       next: (resp) => this.profile = resp,
       error: (err) => console.error(err)
     });

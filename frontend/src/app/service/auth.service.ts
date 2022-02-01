@@ -12,23 +12,23 @@ import { Vendor } from '../models/vendor';
 })
 export class AuthService {
 
-  private _url!: string;
-
   constructor(private url: UrlService, private http: HttpClient, private session: SessionService) { }
 
   login(data: any, next: string): Observable<any> {
-    this._url = this.url.getDefaultUrl('login');
     data.type = this.userTypeId(next);
-    return this.http.post(this._url, data);
+    return this.http.post(this.url.getUrl('login'), data);
   }
 
   register(profile: Customer | Vendor | Supervisor, next: string): Observable<any> {
-    this._url = this.url.getDefaultUrl('register');
-    return this.http.post<any>(this._url, { profile, "type": this.userTypeId(next) });
+    return this.http.post<any>(this.url.getUrl('register'), { profile, "type": this.userTypeId(next) });
   }
 
   setLoggedIn(loggedIn: boolean, user: any) {
     this.session.setSession(loggedIn, user);
+  }
+
+  get uid(): string {
+    return this.session.uid;
   }
 
   get loggedIn(): boolean {
@@ -53,10 +53,10 @@ export class AuthService {
       case 'admin':
         id = 0;
         break;
-      case 'customer':
+      case 'vendor':
         id = 1;
         break;
-      case 'vendor':
+      case 'customer':
         id = 2;
         break;
       case 'delivery':
@@ -66,7 +66,7 @@ export class AuthService {
         id = 4;
         break;
       default:
-        id = 1
+        id = 2
     }
     return id;
   }

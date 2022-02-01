@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
-import { CheckoutComponent } from './cart/checkout/checkout.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './register/register.component';

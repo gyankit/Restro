@@ -1,4 +1,7 @@
 <div class="m-5 p-4">
+    <div class="mx-auto flex justify-center">
+        <img src="{{profile.photo}}" alt="No Image" class="w-64 h-64 rounded-full">
+    </div>
     <div class="list">
         <strong>Varified</strong>
         <span>{{ profile.varified }}</span>
@@ -8,12 +11,8 @@
         <span>{{ profile._id }}</span>
     </div>
     <div class="list">
-        <strong>Shop Name</strong>
-        <span>{{ profile.shopName }}</span>
-    </div>
-    <div class="list">
-        <strong>Owner Name</strong>
-        <span>{{ profile.ownerName }}</span>
+        <strong>Name</strong>
+        <span>{{ profile.name }}</span>
     </div>
     <div class="box-border mx-5 px-5 my-2 py-2">
         <strong>Address</strong>

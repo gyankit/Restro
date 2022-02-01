@@ -8,7 +8,7 @@ module.exports = {
     create: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            if (req._type !== 2) throw new Error(401);
+            if (req._type !== 1) throw new Error(401);
             const menu = new Menu(req.body);
             const vendor = await Vendor.findById(menu.vid);
             if (vendor === null) throw new Error('Bad Request');
@@ -23,7 +23,7 @@ module.exports = {
     update: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            if (req._type !== 2) throw new Error(401);
+            if (req._type !== 1) throw new Error(401);
             const menu = new Menu(req.body);
             const data = await Menu.findByIdAndUpdate(req.body._id, menu, { new: true });
             sr(res, data);
@@ -36,7 +36,7 @@ module.exports = {
     delete: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            if (req._type !== 2) throw new Error(401);
+            if (req._type !== 1) throw new Error(401);
             const data = await Menu.findByIdAndDelete(req.params.id);
             await file.remove(data.photo);
             sr(res, true);
@@ -53,7 +53,7 @@ module.exports = {
                 case 0:
                     menu.varified = !menu.varified;
                     break;
-                case 2:
+                case 1:
                     menu.active = !menu.active;
                     break;
                 default:

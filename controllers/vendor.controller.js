@@ -35,7 +35,7 @@ module.exports = {
                 case 0:
                     data = await Vendor.find({});
                     break;
-                case 2:
+                case 1:
                     data = await Vendor.findById(req._id);
                     break;
                 default:

@@ -11,13 +11,9 @@ import { UrlService } from './url.service';
 })
 export class RegisterService {
 
-  private _url: any;
-
-  constructor(private url: UrlService, private http: HttpClient) {
-  }
+  constructor(private url: UrlService, private http: HttpClient) { }
 
   addAccount(profile: Customer | Vendor | Supervisor, type: string): Observable<any> {
-    this._url = this.url.getDefaultUrl('register');
-    return this.http.post<any>(this._url, { profile, "type": type });
+    return this.http.post<any>(this.url.getUrl('register'), { profile, "type": type });
   }
 }

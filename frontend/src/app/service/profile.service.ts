@@ -3,23 +3,37 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Vendor } from 'src/app/models/vendor';
 import { UrlService } from 'src/app/service/url.service';
+import { Customer } from '../models/customer';
+import { Supervisor } from '../models/supervisor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  private _url: any;
-
   constructor(private http: HttpClient, private url: UrlService) { }
 
-  getRequest(): Observable<any> {
-    this._url = this.url.getVendorUrl('profile');
-    return this.http.post<any>(this._url, {});
+  getVendorRequest(): Observable<any> {
+    return this.http.post<any>(this.url.getUrl('vendor-profile'), {});
   }
 
-  putRequest(profile: Vendor): Observable<Vendor> {
-    this._url = this.url.getVendorUrl('profile-update');
-    return this.http.put<Vendor>(this._url, profile);
+  putVendorRequest(profile: Vendor): Observable<Vendor> {
+    return this.http.put<Vendor>(this.url.getUrl('vendor-profile'), profile);
+  }
+
+  getCustomerRequest(): Observable<any> {
+    return this.http.post<any>(this.url.getUrl('customer-profile'), {});
+  }
+
+  putCustomerRequest(profile: Customer): Observable<Customer> {
+    return this.http.put<Customer>(this.url.getUrl('customer-profile'), profile);
+  }
+
+  getAdminRequest(): Observable<any> {
+    return this.http.post<any>(this.url.getUrl('admin-profile'), {});
+  }
+
+  putAdminRequest(profile: Supervisor): Observable<Supervisor> {
+    return this.http.put<Supervisor>(this.url.getUrl('admin-profile'), profile);
   }
 }

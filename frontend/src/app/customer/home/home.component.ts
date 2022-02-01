@@ -13,11 +13,7 @@ export class HomeComponent implements OnInit {
   menus: Menu[] = [];
   constructor(private menuService: MenuService) {
     this.menuService.getRequest(false, null).subscribe({
-      next: (data: Menu[]) => {
-        for (let i = 0; i < 10; i++) {
-          this.menus.push(data[0])
-        }
-      },
+      next: (data: Menu[]) => this.menus = data,
       error: (error) => this.error = error
     });
   }

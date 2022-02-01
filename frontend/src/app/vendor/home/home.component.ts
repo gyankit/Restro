@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/models/order';
-import { SessionService } from 'src/app/service/session.service';
 import { OrderService } from 'src/app/service/order.service';
 
 @Component({
@@ -12,18 +11,17 @@ export class HomeComponent implements OnInit {
 
   orders: Order[] = [];
 
-  constructor(private orderService: OrderService, private session: SessionService) {
-    this.getOrder();
-    console.log(this.orders);
+  constructor(private orderService: OrderService) {
+    this.orderService.getVendorRequest(true).subscribe({
+      next: (resp: Order[]) => this.orders = resp,
+      error: (err: any) => console.error(err)
+    });
   }
 
   ngOnInit(): void { }
 
-  getOrder() {
-    this.orderService.getRequest(2, this.session.uid).subscribe({
-      next: (resp: Order[]) => this.orders = resp,
-      error: (err: any) => console.error(err)
-    });
+  updateStatus(id: any, status: number, idx: number) {
+    this.orderService.updateRequest(id, status).subscribe(data => this.orders[idx] = data);
   }
 
 }

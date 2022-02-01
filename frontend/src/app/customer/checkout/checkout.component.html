@@ -1,12 +1,12 @@
 <div class="container my-2">
     <div
-        class="box-content shadow-sky-300 shadow-md rounded-3xl h-10 flex justify-between bg-sky-500 mt-4 text-white text-2xl pt-1 px-8">
+        class="box-content shadow-sky-300 shadow-md rounded-3xl h-10 flex justify-between bg-sky-500 mt-4 text-white text-2xl pt-1 px-8 mb-8">
         <span>Quantity : {{ totalQuantity }}</span>
         <span>Rs. {{ totalPrice }}</span>
     </div>
     <div *ngIf="orders.length !== 0">
         <div *ngFor="let order of orders; index as i">
-            <div class="box-content shadow-2xl mt-8 py-2 bg-white flex justify-evenly">
+            <div class="box-content shadow-ml mb-3 flex justify-between bg-lime-300 py-2 px-8 text-black rounded-3xl">
                 <img src="{{order.photo}}" width="300px" alt="No Images" class="border rounded">
                 <div class="px-4 py-2">
                     <div class="flex justify-between">
@@ -27,19 +27,13 @@
                             <span class="block">{{ order.address.pin }}</span>
                         </div>
                     </div>
-                    <div>
-                        <button (click)="removeFromCart(order._id)" type="button"
-                            class="w-64 block mt-2 py-2 rounded-3xl text-white border-indigo-500 bg-indigo-500 hover:bg-indigo-60">
-                            Remove From Cart
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="my-4 flex justify-center">
-            <a [routerLink]="['/checkout']" routerLinkActive="router-link-active"
-                class="rounded-3xl bg-sky-500 border-sky-500 hover:bg-sky-600 text-white text-2xl text-center py-2 px-10">Proceed
-                to Checkout</a>
+            <button type="button" (click)="orderPlace()"
+                class="rounded-3xl bg-pink-500 border-pink-500 hover:bg-pink-600 text-white text-2xl text-center py-2 px-10">Confirm
+                Your Order</button>
         </div>
     </div>
 </div>

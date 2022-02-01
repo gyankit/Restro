@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Vendor } from 'src/app/models/vendor';
+import { Customer } from 'src/app/models/customer';
 
 @Component({
   selector: 'app-edit',
@@ -8,7 +8,7 @@ import { Vendor } from 'src/app/models/vendor';
 })
 export class EditComponent implements OnInit {
 
-  @Input() profile!: Vendor;
+  @Input() profile!: Customer;
   @Output() profileUpdated = new EventEmitter();
 
   constructor() { }

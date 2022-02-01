@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   orders: Order[] = [];
 
-  constructor(private orderService: OrderService, private session: SessionService) {
+  constructor(private orderService: OrderService) {
     this.getOrder();
     console.log(this.orders);
   }
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void { }
 
   getOrder() {
-    this.orderService.getRequest(2, this.session.uid).subscribe({
+    this.orderService.getAdminRequest().subscribe({
       next: (resp: Order[]) => this.orders = resp,
       error: (err: any) => console.error(err)
     });

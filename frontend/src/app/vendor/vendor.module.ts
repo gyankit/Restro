@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { ProfileModule } from './profile/profile.module';
 import { MenuModule } from './menu/menu.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MenuModule } from './menu/menu.module';
     CommonModule,
     MenuModule,
     ProfileModule,
+    FormsModule,
     VendorRoutingModule
   ]
 })

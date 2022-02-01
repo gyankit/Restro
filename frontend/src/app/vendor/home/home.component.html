@@ -1,2 +1,40 @@
-<p>home works!</p>
-{{ orders }}
+<div class="container my-5">
+    <table class="table-auto w-full" *ngIf="orders.length !== 0; else elseBlock">
+        <thead class=" bg-lime-400 h-10">
+            <th>SL No</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Update</th>
+        </thead>
+        <tbody class="text-center">
+            <tr class="h-10" *ngFor="let order of orders; index as idx;">
+                <td>{{ idx+1 }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.price }}</td>
+                <td>
+                    <form #orderUpdateForm="ngForm">
+                        <select title="status" name="status" class="border-2 px-2 py-1 rounded-md"
+                            [(ngModel)]="order.status">
+                            <option value="1">Initiated</option>
+                            <option value="2">Accept</option>
+                            <option value="3">Reject</option>
+                            <option value="4">Transmit</option>
+                            <option value="5">Out for Delivery</option>
+                            <option value="6">Delivered</option>
+                            <option value="7">Not Delivered</option>
+                            <option value="8">Address Not Found</option>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <button class="px-5 py-1 rounded-3xl bg-rose-500 hover:bg-rose-600 text-white"
+                        (click)="updateStatus(order._id, order.status, idx)">Update</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #elseBlock>No Data Available.</ng-template>
+</div>

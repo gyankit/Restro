@@ -35,7 +35,7 @@ module.exports = {
                 case 0:
                     data = await Customer.find({});
                     break;
-                case 1:
+                case 2:
                     data = await Customer.findById(req._id);
                     break;
                 default:

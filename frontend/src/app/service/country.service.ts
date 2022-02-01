@@ -8,11 +8,9 @@ import { UrlService } from './url.service';
 })
 export class CountryService {
 
-  private _url: any;
   constructor(private url: UrlService, private http: HttpClient) { }
 
   getList(): Observable<any> {
-    this._url = this.url.getDefaultUrl('country');
-    return this.http.post<any>(this._url, {});
+    return this.http.post<any>(this.url.getUrl('country'), {});
   }
 }

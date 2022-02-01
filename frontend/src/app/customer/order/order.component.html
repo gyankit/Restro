@@ -1,1 +1,27 @@
-<p>order works!</p>
+<div class="container" *ngIf="orders.length !== 0">
+    <div *ngFor="let order of orders; index as i">
+        <div class="box-content shadow-2xl mt-8 py-2 bg-white flex justify-evenly">
+            <img src="{{order.photo}}" width="300px" alt="No Images" class="border rounded">
+            <div class="px-4 py-2">
+                <div class="flex justify-between">
+                    <div class="text-xl font-bold">
+                        {{order.name}}
+                    </div>
+                    <div class="text-lg font-semibold ml-8">
+                        Rs. {{order.price}}
+                    </div>
+                </div>
+                <div class="flex justify-evenly">
+                    <strong>Address : </strong>
+                    <div class="text-right">
+                        <span class="block">{{ order.address.address1 }}</span>
+                        <span class="block">{{ order.address.address2 }}</span>
+                        <span class="block">{{ order.address.district }}</span>
+                        <span class="block">{{ order.address.state }}</span>
+                        <span class="block">{{ order.address.pin }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

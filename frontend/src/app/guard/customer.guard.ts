@@ -13,7 +13,7 @@ export class CustomerGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.loggedIn && this.authService.isLoggedIn('1')) {
+    if (this.authService.loggedIn && this.authService.isLoggedIn('2')) {
       return true;
     }
     this.router.navigate(["login"]);

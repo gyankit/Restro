@@ -8,15 +8,12 @@ module.exports = {
     create: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            if (req._type !== 1) throw new Error(401);
+            if (req._type !== 2) throw new Error(401);
             const order = new Order(req.body);
-            const customer = await Customer.findById(req.params.customer);
-            const menu = await Menu.findById(req.params.menu);
-            if (customer === null || menu === null) throw new Error('Bad Request');
-            if (req.body.shop === menu.shop) throw new Error("Shop id of order not matching with Shop id of menu.");
             const data = await order.save();
             sr(res, data);
         } catch (error) {
+            console.log(error);
             er(res, error);
         }
     },
@@ -25,10 +22,25 @@ module.exports = {
     update: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            if (req._type !== 1 || req._type !== 2) throw new Error(401);
-            const order = new Order(req.body);
-            const data = await Order.findByIdAndUpdate(req.params.id, order);
-            sr(res, data);
+            let order;
+            switch (req._type) {
+                case 0:
+                    order = await Order.findByIdAndUpdate(req.params.id, order);
+                    break;
+                case 1:
+                    order = await Order.findByIdAndUpdate(req.body.id, { status: req.body.status }, { new: true });
+                    break;
+                case 2:
+                    order = await Order.findById(req.body.id);
+                    if (order.status === 0) {
+                        order.status = 1;
+                        await Order.findByIdAndUpdate(req.body.id, order);
+                    }
+                    break;
+                default:
+                    throw new Error(400);
+            }
+            sr(res, order);
         } catch (error) {
             er(res, error);
         }
@@ -38,9 +50,9 @@ module.exports = {
     delete: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            if (req._type !== 0 || req._type !== 1 || req._type !== 2) throw new Error(401);
-            await Order.findByIdAndDelete(req.params.id);
-            sr(res, true);
+            if (req._type !== 2) throw new Error(401);
+            const order = await Order.findByIdAndDelete(req.params.id);
+            sr(res, order);
         } catch (error) {
             er(res, error);
         }
@@ -53,13 +65,21 @@ module.exports = {
             let data;
             switch (req._type) {
                 case 0:
-                    data = await Order.find({});
+                    data = await Order.find({ status: { $ne: 0, $ } });
                     break;
                 case 1:
-                    data = await Order.find({ cid: req.body.id });
+                    if (req.body.req) {
+                        data = await Order.find({ vid: req._id, status: { $in: [1, 2, 4, 5, 8] } });
+                    } else {
+                        data = await Order.find({ vid: req._id, status: { $in: [3, 6, 7] } });
+                    }
                     break;
                 case 2:
-                    data = await Order.find({ vid: req.body.id });
+                    if (req.body.req) {
+                        data = await Order.find({ cid: req._id, status: 0 });
+                    } else {
+                        data = await Order.find({ cid: req._id, status: { $ne: 0 } });
+                    }
                     break;
                 default:
                     throw new Error(400);
@@ -67,28 +87,6 @@ module.exports = {
             sr(res, data);
         } catch (error) {
             er(res, error);
-        }
-    },
-
-    state: async (req, res) => {
-        try {
-            if (!req.isAuth) throw new Error(401);
-            if (req._type !== 0 || req._type !== 2) throw new Error(401);
-            let order = await Order.findById(req.body.id);
-            switch (req.body.req) {
-                case 0:
-                    order.varified = !order.varified;
-                    break;
-                case 1:
-                    order.active = !order.active;
-                    break;
-                default:
-                    throw new Error(400);
-            }
-            await Order.findByIdAndUpdate(req.body.id, order);
-            sr(res, order);
-        } catch (err) {
-            er(res, err);
         }
     }
 };
