@@ -5,8 +5,10 @@ export class Supervisor {
         public email: string,
         public photo: string,
         public password: string,
-        public varified: boolean,
+        public verified: boolean,
         public active: boolean,
         public _id?: string,
+        public createdAt?: string,
+        public updatedAt?: string
     ) { }
 }

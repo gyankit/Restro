@@ -1,14 +1,45 @@
 <div class="container my-2">
-    <div class="flex justify-between border-b border-t px-4 py-2">
-        <h3 class="text-center font-bold text-2xl">Menu List</h3>
-        <button type="button" (click)="addBtnClick()"
-            class="bottom-0 rounded px-5 py-1 text-lg text-white bg-pink-500 hover:rounded-2xl">
-            <strong>{{ isAddBtnClick ? "View" : "Add" }}</strong>
-        </button>
+    <div class="mt-5">
+        <table class="table-auto w-full" *ngIf="menus.length !== 0; else elseBlock">
+            <thead class="bg-lime-400 h-10">
+                <th>SL No</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Photo</th>
+                <th>Active</th>
+                <th>Verified</th>
+                <th>Deleted</th>
+            </thead>
+            <tbody class="text-center">
+                <tr *ngFor="let menu of menus; index as i;" class="h-10">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ menu.name }}</td>
+                    <td>{{ menu.category }}</td>
+                    <td>{{ menu.quantity }}</td>
+                    <td>{{ menu.price }}</td>
+                    <td>
+                        <img src="{{ menu.photo }}" width="100px" alt="No Images">
+                    </td>
+                    <td>
+                        <button
+                            class="px-5 py-1 rounded-3xl cursor-not-allowed {{ menu.active ? 'bg-green-400' : 'bg-gray-400' }}">{{
+                            menu.active ? 'Yes' : 'No' }}</button>
+                    </td>
+                    <td>
+                        <button
+                            class="px-5 py-1 rounded-3xl {{ menu.verified ? 'bg-green-400 hover:bg-green-500' : 'bg-yellow-400 hover:bg-yellow-500' }}"
+                            (click)="changeState(menu._id, i)">{{ menu.verified ? 'Yes' : 'No' }}</button>
+                    </td>
+                    <td>
+                        <button
+                            class="px-5 py-1 rounded-3xl cursor-not-allowed {{ menu.del ? 'bg-gray-400' : 'bg-green-400' }}">{{
+                            menu.del ? 'Yes' : 'No' }}</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #elseBlock>No Data Available.</ng-template>
     </div>
-    <app-view *ngIf="!isAddBtnClick && !isEditBtnClick" (deleteMenuEvent)="deleteMenu($event)"
-        (changeStateEvent)="changeState($event)" (updateFormEvent)="updateForm($event)" [menus]="menus"></app-view>
-    <app-add *ngIf="isAddBtnClick" (menuAdded)="newMenuAdded($event)"></app-add>
-    <app-edit *ngIf="isEditBtnClick" [id]="id" (viewEvent)="viewEvent()">
-    </app-edit>
 </div>

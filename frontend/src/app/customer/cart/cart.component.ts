@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
     this.totalPrice = 0;
     this.totalQuantity = 0;
     this.orders = [];
-    this.orderService.getCustomerRequest(true).subscribe({
+    this.orderService.getRequest(true).subscribe({
       next: (resp) => {
         this.orders = resp;
         this.orders.forEach(order => {

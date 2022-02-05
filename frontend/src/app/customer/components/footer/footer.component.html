@@ -1,5 +1,20 @@
 <footer class="bg-gray-900 mt-8">
-    <div class="container text-center py-2">
-        <strong class="font-bold text-white">Copyright &copy; 2021 - {{ year }} | Restro </strong>
+    <div class="container-fluid p-2 grid grid-cols-3">
+        <div class="justify-self-start">
+            <a [routerLink]="['']" routerLinkActive="router-link-active" class="font-semibold text-yellow-50">
+                Restro
+            </a>
+        </div>
+        <div class="justify-self-center">
+            <strong class="font-bold text-white">
+                Copyright &copy; 2021 - {{ year }}
+            </strong>
+        </div>
+        <div class="justify-self-end">
+            <a [routerLink]="['/login', 'vendor']" routerLinkActive="router-link-active"
+                class="font-semibold text-yellow-50">
+                Vendor
+            </a>
+        </div>
     </div>
 </footer>

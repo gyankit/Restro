@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Customer } from 'src/app/models/customer';
 import { Menu } from 'src/app/models/menu';
 import { Order } from 'src/app/models/order';
+import { AuthService } from 'src/app/service/auth.service';
 import { OrderService } from 'src/app/service/order.service';
 import { ProfileService } from 'src/app/service/profile.service';
 
@@ -19,17 +21,14 @@ export class MenuComponent implements OnInit {
   oid!: string;
   profile = new Customer('', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', false, false);
 
-  constructor(private orderService: OrderService, private profileService: ProfileService) {
-    this.profileService.getCustomerRequest().subscribe({
-      next: (resp) => {
-        this.profile = resp
-        this.loggedIn = true;
-      },
-      error: (err) => {
-        console.error(err);
-        this.loggedIn = false;
-      }
-    });
+  constructor(private orderService: OrderService, private profileService: ProfileService, private authService: AuthService, private router: Router) {
+    this.loggedIn = this.authService.loggedIn;
+    if (this.loggedIn) {
+      this.profileService.getCustomerRequest().subscribe({
+        next: (resp) => this.profile = resp,
+        error: (error) => console.error(error)
+      });
+    }
   }
 
   ngOnInit(): void { }
@@ -59,4 +58,8 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  checkout() {
+    this.addToCart();
+    this.router.navigate(['/checkout']);
+  }
 }

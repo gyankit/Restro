@@ -2,32 +2,30 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { City, Country } from 'src/app/models/country';
-import { Vendor } from 'src/app/models/vendor';
+import { Customer } from 'src/app/models/customer';
 import { AuthService } from 'src/app/service/auth.service';
 import { CountryService } from 'src/app/service/country.service';
 import { FileService } from 'src/app/service/file.service';
 import { RegisterService } from 'src/app/service/register.service';
 
 @Component({
-  selector: 'app-vendor-register',
-  templateUrl: './vendor-register.component.html',
-  styleUrls: ['./vendor-register.component.css']
+  selector: 'app-customer-register',
+  templateUrl: './customer-register.component.html',
+  styleUrls: ['./customer-register.component.css']
 })
-export class VendorRegisterComponent implements OnInit {
+export class CustomerRegisterComponent implements OnInit {
 
   @Input() next!: string;
   isError: boolean = false;
   error: any = null;
   submitted: boolean = false;
-  profile = new Vendor('', '', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', '', false, false);
+  profile = new Customer('', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', true, true);
   country = new Country('', '', '', '', [{ name: '', code: '', latitude: '', longitude: '', cities: [{ name: '', latitude: '', longitude: '' }] }]);
   cities: Array<City> = [];
-  file1!: File;
-  file2!: File;
+  file!: File;
 
   registerForm = new FormGroup({
-    shopName: new FormControl('', Validators.required),
-    ownerName: new FormControl('', Validators.required),
+    customerName: new FormControl('', Validators.required),
     address: new FormGroup({
       address1: new FormControl('', Validators.required),
       address2: new FormControl(''),
@@ -39,8 +37,7 @@ export class VendorRegisterComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    ownerPhoto: new FormControl('', Validators.required),
-    shopPhoto: new FormControl('', Validators.required),
+    photo: new FormControl('', Validators.required),
   });
 
   constructor(private authService: AuthService, private router: Router, private register: RegisterService, private countryService: CountryService, private fileService: FileService) {
@@ -58,8 +55,7 @@ export class VendorRegisterComponent implements OnInit {
   onSubmit(form: FormGroup) {
     this.submitted = true;
 
-    this.profile.shopName = form.controls['shopName'].value;
-    this.profile.ownerName = form.controls['ownerName'].value;
+    this.profile.name = form.controls['customerName'].value;
     this.profile.mobile = form.controls['mobile'].value;
     this.profile.email = form.controls['email'].value;
     this.profile.address.address1 = form.controls['address'].get('address1')?.value;
@@ -72,24 +68,20 @@ export class VendorRegisterComponent implements OnInit {
     this.addAccount(this.profile);
   }
 
-  file1OnChange(event: any) {
-    this.file1 = event.target.files[0];
+  fileOnChange(event: any) {
+    this.file = event.target.files[0];
   }
 
-  file2OnChange(event: any) {
-    this.file2 = event.target.files[0];
-  }
-
-  addAccount(newProfile: Vendor) {
+  addAccount(newProfile: Customer) {
     this.register.addAccount(newProfile, this.next).subscribe({
       next: (data: any) => {
-        this.fileService.upload([this.file1, this.file2], data, this.next).subscribe(data => this.router.navigate(["login", this.next]));
+        this.submitted = false;
+        this.fileService.upload([this.file], data, this.next).subscribe(data => this.router.navigate(["login"]));
       },
       error: (error) => {
-        console.log(error);
         this.submitted = false;
         this.isError = true;
-        this.error = error;
+        this.error = error.error;
       }
     })
   }
@@ -101,7 +93,7 @@ export class VendorRegisterComponent implements OnInit {
   countryList() {
     this.countryService.getList().subscribe({
       next: (data) => this.country = data[0],
-      error: (error) => console.log(error)
+      error: error => console.log(error)
     })
   }
 
@@ -115,4 +107,5 @@ export class VendorRegisterComponent implements OnInit {
       }
     });
   }
+
 }

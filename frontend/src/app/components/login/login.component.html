@@ -4,7 +4,15 @@
             <h3 class="text-center font-bold text-2xl">{{ next | titlecase }} Login</h3>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)"
                 class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <app-error *ngIf="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
+                <div *ngIf="isError" class="flex justify-center my-5">
+                    <div class="box-border h-auto w-full max-w-md border-2 rounded bg-yellow-200 border-red-500 px-1">
+                        <strong class="text-left text-red-700">
+                            {{ error }}
+                        </strong>
+                        <button type="button" class="float-right font-bold text-xl"
+                            (click)="boxClose()">&times;</button>
+                    </div>
+                </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email ID</label>
                     <input id="email" name="email" type="email" formControlName="email" placeholder="Email ID">
@@ -26,10 +34,16 @@
                     </a>
                 </div>
             </form>
-            <div class="flex justify-center mb-5">
+            <div *ngIf="next !== 'admin'" class="flex justify-center mb-5">
                 <a [routerLink]="['/register', next]" routerLinkActive="router-link-active"
                     class="inline-block align-baseline font-bold text-sm text-blue-300 hover:text-blue-500 cursor-pointer">
                     Create New Account
+                </a>
+            </div>
+            <div class="flex justify-center mb-5">
+                <a [routerLink]="['']" routerLinkActive="router-link-active"
+                    class="inline-block align-baseline font-bold text-sm text-blue-300 hover:text-blue-500 cursor-pointer">
+                    Back to Home
                 </a>
             </div>
             <p class="text-center text-gray-500 text-xs">

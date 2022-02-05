@@ -11,13 +11,13 @@ module.exports = {
             let user;
             switch (req.body.type) {
                 case 0:
-                    user = await Supervisor.findOne({ email: req.body.email, active: true, varified: true });
+                    user = await Supervisor.findOne({ email: req.body.email, active: true, verified: true });
                     break;
                 case 1:
-                    user = await Vendor.findOne({ email: req.body.email, active: true, varified: true });
+                    user = await Vendor.findOne({ email: req.body.email, active: true, verified: true });
                     break;
                 case 2:
-                    user = await Customer.findOne({ email: req.body.email, active: true, varified: true });
+                    user = await Customer.findOne({ email: req.body.email, active: true, verified: true });
                     break;
                 default:
                     throw new Error('Invalid Login Credentials');
@@ -57,8 +57,8 @@ module.exports = {
                     throw new Error('Invalid Login Credentials');
             }
             if (match !== null) throw new Error('Email Already Exists');
-            const salt = await bcrypt.genSaltSync(12);
-            profile.password = await bcrypt.hashSync(profile.password, salt);
+            const salt = bcrypt.genSaltSync(12);
+            profile.password = bcrypt.hashSync(profile.password, salt);
             const user = await profile.save();
             res.status(201).send(user._id);
         } catch (err) {

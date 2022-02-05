@@ -63,7 +63,7 @@ export class AdminRegisterComponent implements OnInit {
       error: (error) => {
         this.submitted = false;
         this.isError = true;
-        this.error = error;
+        this.error = error.error;
       }
     })
   }

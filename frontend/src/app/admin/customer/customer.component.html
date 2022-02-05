@@ -1,0 +1,40 @@
+<div class="container my-5">
+    <table class="table-auto w-full" *ngIf="customers.length !== 0; else elseBlock">
+        <thead class=" bg-lime-400 h-10">
+            <th>SL No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Active</th>
+            <th>Verified</th>
+            <th>Date</th>
+        </thead>
+        <tbody class="text-center">
+            <tr class="h-10" *ngFor="let customer of customers; index as idx;">
+                <td>{{ idx+1 }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.mobile }}</td>
+                <td>
+                    {{ customer.address.address1 }}, {{ customer.address.address2 }} <br />
+                    {{ customer.address.district }} <br />
+                    {{ customer.address.state }} - {{ customer.address.pin }}
+                </td>
+                <td>
+                    <button
+                        class="px-5 py-1 rounded-3xl  cursor-not-allowed {{ customer.active ? 'bg-green-400' : 'bg-gray-400' }}">{{
+                        customer.active ? 'Yes' : 'No' }}</button>
+                </td>
+                <td>
+                    <button
+                        class="px-5 py-1 rounded-3xl {{ customer.verified ? 'bg-green-400 hover:bg-green-500' : 'bg-yellow-400 hover:bg-yellow-500' }}"
+                        (click)="changeState(customer._id, customer.verified, idx)">{{ customer.verified ? 'Yes' : 'No'
+                        }}
+                    </button>
+                <td>{{ customer.createdAt | date }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #elseBlock>No Data Available.</ng-template>
+</div>

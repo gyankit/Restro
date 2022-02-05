@@ -18,6 +18,7 @@ export class Order {
         public transactionStatus: boolean,
         public transactionMode: number,
         public _id?: string,
-        public createdAt?: string
+        public createdAt?: string,
+        public updatedAt?: string
     ) { }
 }

@@ -29,11 +29,26 @@ export class ProfileService {
     return this.http.put<Customer>(this.url.getUrl('customer-profile'), profile);
   }
 
-  getAdminRequest(): Observable<any> {
-    return this.http.post<any>(this.url.getUrl('admin-profile'), {});
+  getAdminRequest(type: number): Observable<any> {
+    switch (type) {
+      case 1:
+        return this.http.post<any>(this.url.getUrl('vendor-profile'), {});
+      case 2:
+        return this.http.post<any>(this.url.getUrl('customer-profile'), {});
+      default:
+        return this.http.post<any>(this.url.getUrl('supervisor-profile'), { "req": false });
+    }
+  }
+
+  stateRequest(type: number, id: string, state: boolean): Observable<any> {
+    if (type === 1) {
+      return this.http.put<any>(this.url.getUrl('vendor-profile-state'), { id: id, state: state });
+    } else {
+      return this.http.put<any>(this.url.getUrl('customer-profile-state'), { id: id, state: state });
+    }
   }
 
   putAdminRequest(profile: Supervisor): Observable<Supervisor> {
-    return this.http.put<Supervisor>(this.url.getUrl('admin-profile'), profile);
+    return this.http.put<Supervisor>(this.url.getUrl('supervisor-profile'), profile);
   }
 }

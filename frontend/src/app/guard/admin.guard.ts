@@ -15,17 +15,17 @@ export class AdminGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.loggedIn) {
       alert('You are not allowed to view this page. You are redirected to login Page');
-      this.router.navigate(["login", "admin"]);
+      this.router.navigate(["login", "supervisor"]);
       return false;
     }
-    return false;
+    return true;
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.isLoggedIn('0')) {
       alert('You are not allowed to view this page');
-      this.router.navigate(["login", "admin"]);
+      this.router.navigate(["login", "supervisor"]);
       return false;
     }
     return true;

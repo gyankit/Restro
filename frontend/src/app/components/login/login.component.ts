@@ -24,13 +24,13 @@ export class LoginComponent implements OnInit {
     const path = this.route.snapshot.paramMap.get('next');
     if (path === null) {
       this.next = 'customer';
-      this.redirect('1', this.next);
-    } else if (path === 'admin') {
-      this.next = 'admin';
+      this.redirect('2', this.next);
+    } else if (path === 'supervisor') {
+      this.next = 'supervisor';
       this.redirect('0', this.next);
     } else if (path === 'vendor') {
       this.next = 'vendor';
-      this.redirect('2', this.next);
+      this.redirect('1', this.next);
     } else {
       this.router.navigate(["login"]);
     }
@@ -42,12 +42,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(form.value, this.next).subscribe({
       next: (data: any) => {
         this.authService.setLoggedIn(true, data);
-        const path = this.next === 'customer' ? '/' : this.next;
-        this.router.navigate(['/', path]);
+        const path = this.next === 'customer' ? '' : this.next;
+        this.router.navigate([path]);
       },
       error: (error) => {
         this.isError = true;
-        this.error = error;
+        this.error = error.error;
       }
     });
 
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
   redirect(type: string, path: string) {
     if (this.authService.loggedIn && (this.authService.type === type)) {
       if (path === 'customer')
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       else
         this.router.navigate([path]);
     }

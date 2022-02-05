@@ -30,10 +30,11 @@ module.exports = {
     //Customer Find Controller
     find: async (req, res) => {
         try {
+            if (!req.isAuth) throw new Error(401);
             let data;
             switch (req._type) {
                 case 0:
-                    data = await Customer.find({});
+                    data = await Customer.find({}).sort({ createdAt: -1 });
                     break;
                 case 2:
                     data = await Customer.findById(req._id);
@@ -45,5 +46,17 @@ module.exports = {
         } catch (error) {
             er(res, error);
         }
-    }
+    },
+
+    state: async (req, res) => {
+        console.log(req.body);
+        try {
+            if (!req.isAuth) throw new Error(401);
+            if (req._type !== 0) throw new Error(401);
+            const customer = await Customer.findByIdAndUpdate(req.body.id, { verified: req.body.state }, { new: true });
+            sr(res, customer);
+        } catch (err) {
+            er(res, err);
+        }
+    },
 };

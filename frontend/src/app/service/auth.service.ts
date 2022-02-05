@@ -50,7 +50,7 @@ export class AuthService {
   userTypeId(type: string) {
     let id;
     switch (type) {
-      case 'admin':
+      case 'supervisor':
         id = 0;
         break;
       case 'vendor':

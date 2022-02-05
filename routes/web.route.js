@@ -7,6 +7,7 @@ const auth = require('../controllers/auth.controller');
 const menu = require('../controllers/menu.controller');
 const file = require('../controllers/file.controller');
 const customer = require('../controllers/customer.controller');
+const supervisor = require('../controllers/supervisor.controller');
 const order = require('../controllers/order.controller');
 // const review = require('../controllers/review.controller');
 
@@ -32,6 +33,7 @@ router.post('/register', auth.register);
 
 //Vendor Routes
 router.post('/vendor', vendor.find);
+router.put('/vendor/state', vendor.state);
 router.put('/vendor/update', vendor.update);
 router.delete('/vendor/delete/:id', vendor.delete);
 
@@ -44,9 +46,14 @@ router.delete('/menu/delete/:id', menu.delete);
 
 //Customer Routes
 router.post('/customer', customer.find);
+router.put('/customer/state', customer.state);
 router.put('/customer/update', customer.update);
 router.delete('/customer/delete', customer.delete);
 
+//Supervisor Routes
+router.post('/supervisor', supervisor.find);
+//router.put('/supervisor/update', supervisor.update);
+//router.delete('/supervisor/delete', supervisor.delete);
 
 // Order Routes
 router.post('/order', order.find);

@@ -1,2 +1,35 @@
-<p>home works!</p>
-{{ orders }}
+<div class="container my-5">
+    <table class="table-auto w-full" *ngIf="orders.length !== 0; else elseBlock">
+        <thead class=" bg-lime-400 h-10">
+            <th>SL No</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Vendor ID</th>
+        </thead>
+        <tbody class="text-center">
+            <tr class="h-10" *ngFor="let order of orders; index as idx;">
+                <td>{{ idx+1 }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.price }}</td>
+                <td [ngSwitch]="order.status">
+                    <span *ngSwitchCase="1">Initiated</span>
+                    <span *ngSwitchCase="2">Accept</span>
+                    <span *ngSwitchCase="3">Reject</span>
+                    <span *ngSwitchCase="4">Transmit</span>
+                    <span *ngSwitchCase="5">Out for Delivery</span>
+                    <span *ngSwitchCase="6">Delivered</span>
+                    <span *ngSwitchCase="7">Not Delivered</span>
+                    <span *ngSwitchCase="8">Address Not Found</span>
+                    <span *ngSwitchDefault>Initiated</span>
+                </td>
+                <td>{{ order.createdAt | date }}</td>
+                <td>{{order.vid}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #elseBlock>No Data Available.</ng-template>
+</div>

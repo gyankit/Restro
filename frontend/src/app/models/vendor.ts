@@ -14,8 +14,10 @@ export class Vendor {
         public ownerPhoto: string,
         public shopPhoto: string,
         public password: string,
-        public varified: boolean,
+        public verified: boolean,
         public active: boolean,
         public _id?: string,
+        public createdAt?: string,
+        public updatedAt?: string
     ) { }
 }

@@ -13,17 +13,12 @@ export class HomeComponent implements OnInit {
   orders: Order[] = [];
 
   constructor(private orderService: OrderService) {
-    this.getOrder();
-    console.log(this.orders);
-  }
-
-  ngOnInit(): void { }
-
-  getOrder() {
-    this.orderService.getAdminRequest().subscribe({
+    this.orderService.getRequest(true).subscribe({
       next: (resp: Order[]) => this.orders = resp,
       error: (err: any) => console.error(err)
     });
   }
+
+  ngOnInit(): void { }
 
 }

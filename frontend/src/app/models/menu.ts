@@ -10,5 +10,7 @@ export class Menu {
         public verified: boolean,
         public del: boolean,
         public _id?: string,
+        public createdAt?: string,
+        public updatedAt?: string
     ) { }
 }

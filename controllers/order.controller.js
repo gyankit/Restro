@@ -62,28 +62,33 @@ module.exports = {
     find: async (req, res) => {
         try {
             if (!req.isAuth) throw new Error(401);
-            let data;
+            let filter;
             switch (req._type) {
                 case 0:
-                    data = await Order.find({ status: { $ne: 0, $ } });
+                    if (req.body.req) {
+                        filter = { status: { $in: [1, 2, 4, 5, 8] } };
+                    } else {
+                        filter = { status: { $in: [3, 6, 7] } };
+                    }
                     break;
                 case 1:
                     if (req.body.req) {
-                        data = await Order.find({ vid: req._id, status: { $in: [1, 2, 4, 5, 8] } });
+                        filter = { vid: req._id, status: { $in: [1, 2, 4, 5, 8] } };
                     } else {
-                        data = await Order.find({ vid: req._id, status: { $in: [3, 6, 7] } });
+                        filter = { vid: req._id, status: { $in: [3, 6, 7] } };
                     }
                     break;
                 case 2:
                     if (req.body.req) {
-                        data = await Order.find({ cid: req._id, status: 0 });
+                        filter = { cid: req._id, status: 0 };
                     } else {
-                        data = await Order.find({ cid: req._id, status: { $ne: 0 } });
+                        filter = { cid: req._id, status: { $ne: 0 } };
                     }
                     break;
                 default:
                     throw new Error(400);
             }
+            const data = await Order.find(filter).sort({ createdAt: -1 });
             sr(res, data);
         } catch (error) {
             er(res, error);

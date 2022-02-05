@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.loggedIn = this.authService.loggedIn;
+    this.loggedIn = this.authService.loggedIn && this.authService.isLoggedIn('2');
   }
 
   ngOnInit(): void { }

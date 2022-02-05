@@ -1,0 +1,62 @@
+<form [formGroup]="registerForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="mb-4">
+        <label for="name">Customer Name * </label>
+        <input id="name" name="name" type="text" placeholder="Supervisor Name" formControlName="name">
+    </div>
+    <div class="mb-4">
+        <label for="mobile">Mobile Number *</label>
+        <input id="mobile" name="mobile" type="text" placeholder="Modile Number" formControlName="mobile">
+        <div *ngIf="rf['mobile'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['mobile'].errors['pattern']" class="text-red-700">
+                Please Provide Valid 10 Digit Mobile Number.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="email">Email ID * </label>
+        <input id="email" name="email" type="email" placeholder="Email Id" formControlName="email">
+        <div *ngIf="rf['email'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['email'].errors['pattern']" class="text-red-700">
+                Please Provide Valid Email Id.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="password">Password * </label>
+        <input id="password" name="password" type="password" placeholder="Password" formControlName="password">
+        <div *ngIf="rf['password'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['password'].errors['minlength']" class="text-red-700">
+                Please Provide Valid Password.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label for="confirmPassword">Confirm Password * </label>
+        <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password"
+            formControlName="confirmPassword">
+        <div *ngIf="rf['confirmPassword'].errors" class="mt-2 text-right">
+            <strong *ngIf="rf['confirmPassword'].errors['minlength']" class="text-red-700">
+                Please Provide Valid Password.
+            </strong>
+        </div>
+    </div>
+    <div class="mb-8">
+        <label for="photo">Photo * </label>
+        <input id="photo" name="photo" type="file" formControlName="photo" accept="image/*"
+            (change)="fileOnChange($event)">
+    </div>
+    <div *ngIf="isError" class="flex justify-center my-5">
+        <div class="box-border h-auto w-full max-w-md border-2 rounded bg-yellow-200 border-red-500 px-1">
+            <strong class="text-left text-red-700">
+                {{ error }}
+            </strong>
+            <button type="button" class="float-right font-bold text-xl" (click)="boxClose()">&times;</button>
+        </div>
+    </div>
+    <button type="button" [disabled]="registerForm.invalid"
+        [ngClass]="{buttonDisabled: registerForm.invalid, buttonEffect: registerForm.valid}"
+        (click)="onSubmit(registerForm)">
+        <app-spinner *ngIf="submitted"></app-spinner>
+        <span>Register {{ next | titlecase }}</span>
+    </button>
+</form>

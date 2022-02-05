@@ -14,8 +14,8 @@ export class RegisterComponent implements OnInit {
     const path = this.route.snapshot.paramMap.get('next');
     if (path === null) {
       this.next = 'customer';
-    } else if (path === 'admin') {
-      this.next = 'admin';
+    } else if (path === 'supervisor') {
+      this.next = 'supervisor';
     } else if (path === 'vendor') {
       this.next = 'vendor';
     } else {

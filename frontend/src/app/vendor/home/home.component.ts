@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   orders: Order[] = [];
 
   constructor(private orderService: OrderService) {
-    this.orderService.getVendorRequest(true).subscribe({
+    this.orderService.getRequest(true).subscribe({
       next: (resp: Order[]) => this.orders = resp,
       error: (err: any) => console.error(err)
     });

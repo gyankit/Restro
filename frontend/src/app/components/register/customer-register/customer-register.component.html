@@ -1,9 +1,11 @@
-<form [formGroup]="registerForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)"
+    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <div class="mb-4">
-        <label for="name">Customer Name * </label>
-        <input id="name" name="name" type="text" placeholder="Supervisor Name" formControlName="name">
+        <label for="customerName">Customer Name * </label>
+        <input id="customerName" name="customerName" type="text" placeholder="Customer Name"
+            formControlName="customerName">
     </div>
-    <!-- <div class="mb-4" formGroupName="address">
+    <div class="mb-4" formGroupName="address">
         <label for="address">Address </label>
         <div class="mx-4">
             <div class="mb-4">
@@ -22,8 +24,8 @@
                     <option *ngFor="let state of country.states" [value]="state.code">{{ state.name }}
                     </option>
                 </select>
-                <div *ngIf="rf['address.get('state')?.touched" class="mt-2 text-right">
-                    <strong *ngIf="rf['address.get('state')?.errors" class="text-red-700">
+                <div *ngIf="rfa.get('state')?.touched" class="mt-2 text-right">
+                    <strong *ngIf="rfa.get('state')?.errors" class="text-red-700">
                         Please Select State from List.
                     </strong>
                 </div>
@@ -35,8 +37,8 @@
                     <option *ngFor="let city of cities" [value]="city">{{ city }}
                     </option>
                 </select>
-                <div *ngIf="rf['address.get('district')?.touched" class="mt-2 text-right">
-                    <strong *ngIf="rf['address.get('district')?.errors" class="text-red-700">
+                <div *ngIf="rfa.get('district')?.touched" class="mt-2 text-right">
+                    <strong *ngIf="rfa.get('district')?.errors" class="text-red-700">
                         Please Select District from List.
                     </strong>
                 </div>
@@ -44,14 +46,14 @@
             <div class="mb-4">
                 <label for="pin">Pin code * </label>
                 <input id="pin" name="pin" type="text" placeholder="Pin Code" formControlName="pin">
-                <div *ngIf="rf['address.get('pin')?.errors" class="mt-2 text-right">
-                    <strong *ngIf="rf['address.get('pin')?.errors?.pattern" class="text-red-700">
+                <div *ngIf="rfa.get('pin')?.touched" class="mt-2 text-right">
+                    <strong *ngIf="rfa.get('pin')?.errors" class="text-red-700">
                         Please Provide Valid 6 Digit Pin Code.
                     </strong>
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
     <div class="mb-4">
         <label for="mobile">Mobile Number *</label>
         <input id="mobile" name="mobile" type="text" placeholder="Modile Number" formControlName="mobile">
@@ -94,10 +96,16 @@
         <input id="photo" name="photo" type="file" formControlName="photo" accept="image/*"
             (change)="fileOnChange($event)">
     </div>
-    <app-error *ngIf="isError" [error]="error" (boxCloseEvent)="boxClose()"></app-error>
-    <button type="button" [disabled]="registerForm.invalid"
-        [ngClass]="{buttonDisabled: registerForm.invalid, buttonEffect: registerForm.valid}"
-        (click)="onSubmit(registerForm)">
+    <div *ngIf="isError" class="flex justify-center my-5">
+        <div class="box-border h-auto w-full max-w-md border-2 rounded bg-yellow-200 border-red-500 px-1">
+            <strong class="text-left text-red-700">
+                {{ error }}
+            </strong>
+            <button type="button" class="float-right font-bold text-xl" (click)="boxClose()">&times;</button>
+        </div>
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid"
+        [ngClass]="{buttonDisabled: registerForm.invalid, buttonEffect: registerForm.valid}">
         <app-spinner *ngIf="submitted"></app-spinner>
         <span>Register {{ next | titlecase }}</span>
     </button>

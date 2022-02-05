@@ -12,7 +12,7 @@ var vendorSchema = new mongoose.Schema({
     },
     mobile: { type: String, required: true },
     email: { type: String, unique: true, required: true },
-    varified: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
     active: { type: Boolean, default: false },
     password: { type: String, required: true },
     shopPhoto: { type: String },

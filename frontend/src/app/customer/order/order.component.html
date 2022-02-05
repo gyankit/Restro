@@ -11,7 +11,7 @@
                         Rs. {{order.price}}
                     </div>
                 </div>
-                <div class="flex justify-evenly">
+                <div class="flex justify-between">
                     <strong>Address : </strong>
                     <div class="text-right">
                         <span class="block">{{ order.address.address1 }}</span>
@@ -20,6 +20,24 @@
                         <span class="block">{{ order.address.state }}</span>
                         <span class="block">{{ order.address.pin }}</span>
                     </div>
+                </div>
+                <div class="flex justify-between bg-green-100">
+                    <strong>Status : </strong>
+                    <div [ngSwitch]="order.status" class="text-right">
+                        <span *ngSwitchCase="1">Initiated</span>
+                        <span *ngSwitchCase="2">Accept</span>
+                        <span *ngSwitchCase="3">Reject</span>
+                        <span *ngSwitchCase="4">Transmit</span>
+                        <span *ngSwitchCase="5">Out for Delivery</span>
+                        <span *ngSwitchCase="6">Delivered</span>
+                        <span *ngSwitchCase="7">Not Delivered</span>
+                        <span *ngSwitchCase="8">Address Not Found</span>
+                        <span *ngSwitchDefault>Initiated</span>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <strong>Date : </strong>
+                    <span>{{ order.createdAt | date:'medium' }}</span>
                 </div>
             </div>
         </div>

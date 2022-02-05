@@ -1,0 +1,42 @@
+<div class="container my-5">
+    <table class="table-auto w-full" *ngIf="vendors.length !== 0; else elseBlock">
+        <thead class=" bg-lime-400 h-10">
+            <th>SL No</th>
+            <th>Name</th>
+            <th>Shop</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Active</th>
+            <th>Verified</th>
+            <th>Date</th>
+        </thead>
+        <tbody class="text-center">
+            <tr class="h-10" *ngFor="let vendor of vendors; index as idx;">
+                <td>{{ idx+1 }}</td>
+                <td>{{ vendor.ownerName }}</td>
+                <td>{{ vendor.shopName }}</td>
+                <td>{{ vendor.email }}</td>
+                <td>{{ vendor.mobile }}</td>
+                <td>
+                    {{ vendor.address.address1 }}, {{ vendor.address.address2 }} <br />
+                    {{ vendor.address.district }} <br />
+                    {{ vendor.address.state }} - {{ vendor.address.pin }}
+                </td>
+                <td>
+                    <button
+                        class="px-5 py-1 rounded-3xl  cursor-not-allowed {{ vendor.active ? 'bg-green-400' : 'bg-gray-400' }}">{{
+                        vendor.active ? 'Yes' : 'No' }}</button>
+                </td>
+                <td>
+                    <button
+                        class="px-5 py-1 rounded-3xl {{ vendor.verified ? 'bg-green-400 hover:bg-green-500' : 'bg-yellow-400 hover:bg-yellow-500' }}"
+                        (click)="changeState(vendor._id, vendor.verified, idx)">{{ vendor.verified ? 'Yes' : 'No' }}
+                    </button>
+                </td>
+                <td>{{ vendor.createdAt | date }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #elseBlock>No Data Available.</ng-template>
+</div>

@@ -19,7 +19,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private orderService: OrderService, private profileService: ProfileService, private router: Router) {
     this.profileService.getCustomerRequest().subscribe(data => this.user = data);
-    this.orderService.getCustomerRequest(true).subscribe({
+    this.orderService.getRequest(true).subscribe({
       next: (resp) => {
         this.orders = resp;
         this.orders.forEach(order => {

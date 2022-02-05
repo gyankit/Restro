@@ -11,18 +11,10 @@ export class OrderService {
 
   constructor(private http: HttpClient, private url: UrlService) { }
 
-  getCustomerRequest(req: boolean): Observable<any> {
+  getRequest(req: boolean): Observable<any> {
     return this.http.post<any>(this.url.getUrl('order'), {
       req: req
     });
-  }
-
-  getVendorRequest(req: boolean): Observable<any> {
-    return this.http.post<any>(this.url.getUrl('order'), { req: req });
-  }
-
-  getAdminRequest(): Observable<any> {
-    return this.http.post<any>(this.url.getUrl('order'), {});
   }
 
   createRequest(order: Order): Observable<any> {

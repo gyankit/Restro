@@ -51,7 +51,7 @@ module.exports = {
             let menu = await Menu.findById(req.body.id);
             switch (req._type) {
                 case 0:
-                    menu.varified = !menu.varified;
+                    menu.verified = !menu.verified;
                     break;
                 case 1:
                     menu.active = !menu.active;
@@ -59,7 +59,7 @@ module.exports = {
                 default:
                     throw new Error(400);
             }
-            await Menu.findByIdAndUpdate(req.body.id, menu);
+            menu = await Menu.findByIdAndUpdate(req.body.id, menu, { new: true });
             sr(res, menu);
         } catch (err) {
             er(res, err);
@@ -71,16 +71,16 @@ module.exports = {
             let data;
             switch (req._type) {
                 case 0:
-                    data = await Menu.find({});
+                    data = await Menu.find({}).sort({ createdAt: -1 });
                     break;
                 case 1:
-                    data = await Menu.find({ vid: req._id, del: false });
+                    data = await Menu.find({ vid: req._id, del: false }).sort({ createdAt: -1 });
                     break;
                 default:
                     if (req.body.req) {
                         data = await Menu.findById(req.body.id);
                     } else {
-                        data = await Menu.find({ active: true, varified: true, del: false });
+                        data = await Menu.find({ active: true, varified: true, del: false }).sort({ createdAt: -1 });
                     }
                     break;
             }

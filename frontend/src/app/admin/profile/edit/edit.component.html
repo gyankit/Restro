@@ -7,62 +7,11 @@
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="shopName">
-                Shop Name
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                Name
             </label>
-            <input id="shopName" name="shopName" type="text" required [(ngModel)]="profile.shopName"
+            <input id="name" name="name" type="text" required [(ngModel)]="profile.name"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="ownerName">
-                Owner Name
-            </label>
-            <input id="ownerName" name="ownerName" type="text" required [(ngModel)]="profile.ownerName"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
-                Address
-            </label>
-            <div class="mx-4">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="address1">
-                        Vill/Town/City
-                    </label>
-                    <input id="address1" name="address1" type="text" required [(ngModel)]="
-                        profile.address.address1"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="address2">
-                        Street
-                    </label>
-                    <input id="address2" name="address2" type="text" required [(ngModel)]="
-                        profile.address.address2"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="district">
-                        District
-                    </label>
-                    <input id="district" name="district" type="text" required [(ngModel)]="profile.address.district"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="state">
-                        State
-                    </label>
-                    <input id="state" name="state" type="text" required [(ngModel)]="profile.address.state"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="pin">
-                        Pin code
-                    </label>
-                    <input id="pin" name="pin" type="text" required [(ngModel)]="profile.address.pin"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-            </div>
         </div>
         <div class="m-8">
             <button type="submit" [disabled]="!profileEditForm.form.valid"

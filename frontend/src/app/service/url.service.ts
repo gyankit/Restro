@@ -27,14 +27,16 @@ export class UrlService {
     { key: 'order-delete', value: this.base + 'order/delete' },
     //vendor
     { key: 'vendor-order', value: this.base + 'order' },
-    { key: 'vendor-record', value: this.base + 'record' },
     { key: 'vendor-profile', value: this.base + 'vendor' },
     { key: 'vendor-order-state', value: this.base + 'order/state' },
-    { key: 'vendor-record-state', value: this.base + 'record/state' },
+    { key: 'vendor-profile-state', value: this.base + 'vendor/state' },
     { key: 'vendor-profile-update', value: this.base + 'vendor/update' },
     //customer
     { key: 'customer-profile', value: this.base + 'customer' },
+    { key: 'customer-profile-state', value: this.base + 'customer/state' },
     { key: 'customer-profile-update', value: this.base + 'customer/update' },
+    //supervisor
+    { key: 'supervisor-profile', value: this.base + 'supervisor' },
   ];
 
   constructor() { }

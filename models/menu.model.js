@@ -8,7 +8,7 @@ var menuSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     photo: { type: String },
     active: { type: Boolean, default: false },
-    varified: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
     del: { type: Boolean, default: false }
 }, { timestamps: true });
 

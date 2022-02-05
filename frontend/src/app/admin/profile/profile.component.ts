@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vendor } from 'src/app/models/vendor';
+import { Supervisor } from 'src/app/models/supervisor';
 import { ProfileService } from 'src/app/service/profile.service';
 
 @Component({
@@ -11,13 +11,14 @@ export class ProfileComponent implements OnInit {
 
   isEditBtnClick: boolean = false;
 
-  profile = new Vendor('', '', { address1: '', address2: null, district: '', state: '', pin: '' }, '', '', '', '', '', false, false);
+  profile = new Supervisor('', '', '', '', '', false, false);
 
   constructor(private profileService: ProfileService) {
-    this.profileService.getAdminRequest().subscribe({
+    this.profileService.getAdminRequest(0).subscribe({
       next: (resp) => this.profile = resp,
       error: (err) => console.error(err)
     });
+
   }
 
   ngOnInit(): void { }

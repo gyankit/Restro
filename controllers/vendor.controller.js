@@ -30,10 +30,11 @@ module.exports = {
     //Vendor Find Controller
     find: async (req, res) => {
         try {
+            if (!req.isAuth) throw new Error(401);
             let data;
             switch (req._type) {
                 case 0:
-                    data = await Vendor.find({});
+                    data = await Vendor.find({}).sort({ createdAt: -1 });
                     break;
                 case 1:
                     data = await Vendor.findById(req._id);
@@ -46,5 +47,16 @@ module.exports = {
         } catch (error) {
             er(res, error);
         }
-    }
+    },
+
+    state: async (req, res) => {
+        try {
+            if (!req.isAuth) throw new Error(401);
+            if (req._type !== 0) throw new Error(401);
+            const vendor = await Vendor.findByIdAndUpdate(req.body.id, { verified: req.body.state }, { new: true });
+            sr(res, vendor);
+        } catch (err) {
+            er(res, err);
+        }
+    },
 };
